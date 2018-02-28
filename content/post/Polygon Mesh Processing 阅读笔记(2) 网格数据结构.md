@@ -1,0 +1,98 @@
+---
+title: "Polygon Mesh Processing 阅读笔记(2) 网格数据结构"
+date: 2018-02-28
+draft: false
+tags: ["Mesh", "阅读笔记"]
+---
+<!--more-->
+
+选择网格数据结构的时候一般考虑下面两个因素：
+
+1. **拓扑需求(Topological Requirements)** ：需要表示什么样的网格？是二维流形，还是其它更复杂的网格？是单纯的三角形网格，或者其它任意的多边形网格？是需要给当前的网格附加上其它的网格？
+
+2. **算法需求(Algorithmic Requirements)**：使用什么样的算法？是简单的渲染还是需要频繁的访问相邻的点边面？是静态网格还是动态网格？对于网格是否需要附加一些其它的属性？对内存的消耗是否特别在意？
+
+评估一个数据结构的好坏有下面几个标准：
+
+1. 建立数据结构所需要预处理的时间
+2. 查询操作的响应时间
+3. 执行某项具体操作的时间
+4. 内存消耗和冗余
+
+## Faced-Based Data Structures
+
+这种数据结构最直观的优点是简单，这种数据结构由网格所有面的集合构成，而对于每一个面则使用组成面多边形的的点来表示。
+
+![](http://upload-images.jianshu.io/upload_images/6808438-728b4acb3b7fcc55.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+以三角形网格为例，假设使用32位的单精度浮点数来表示坐标则，那么使用顶点的数据来表示一个三角形则需要36个字节(3 vertex * 3 dimension * 4 byte = 36 byte)。
+
+通过上一部分的学习可以知道顶点的邻边的平均数量为6，即在这种数据结构中一个顶点平均会被存储6次，所以可以估算使用这种数据结构平均每一个顶点要使用72个字节(3 dimension * 4 byte * 6 time = 72 byte)
+
+可以发现，一个顶点的数据被多次存储，一种可以改进这种空间冗余的方法是，使用数组来存储所有的顶点数据，而对于每一个三角形面只需要存储组成其的三个顶点的索引号即可。
+
+![](http://upload-images.jianshu.io/upload_images/6808438-9957927517888d20.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+这样存储一个三角形或一个顶点只需要12个字节(3个4字节的浮点数或3个整数)
+
+这样平均一个顶点只需要36个字节(3 dimension * 4 byte + 6 time * 4 byte = 36 byte，一份顶点数据，6个索引号)
+
+但是这种数据结构存在一个问题，它缺陷显式的连通性信息，在大多数算法中都会用到下面的操作：
+
+* 迭代访问所有的点、边和面
+* 有方向地遍历一个面周围的边，这需要通过一条边找到它的下一条或者上一条边，可能还需要顺带的使用到对应顶点的数据
+* 通过一条边找到与它相邻的面或者它的两个端点
+* 通过一个顶点迭代访问它周围的边和面(*one-ring neighborhood*)
+
+要通过上面的数据结构完成这些操作，可以把向当前的数据结构中添加一部分信息。
+
+![](http://upload-images.jianshu.io/upload_images/6808438-62deb2bccd228a9e.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+添加了附加信息后，存储一个面需要24个字节，存储一个顶点需要16个字节，平均一个顶点需要64个字节。
+
+## Edge-Based Data Structures
+
+这种数据结构改进Faced-Based Data Structures中没有显式存储边地问题，并附加存储了很多其它信息到边上(两个端点、相邻地面、边)。
+
+![](http://upload-images.jianshu.io/upload_images/6808438-aa01984ef0b348c3.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+这种数据结构存储一个面需要4个字节，存储一个顶点需要16个字节，存储一条边需要32个字节，平均一个顶点需要120个字节。
+
+## Halfedge-Based Data Structure
+
+在Halfedge-Based Data Structure(半边数据结构)中，一个重要的概念就是Halfedge(半边)，半边即一条边的一半，等于是把一条边保持长度不变，形式上分为两条半边。这两条半边组合在一起称为一条边，也就是一条边等于一对半边。半边是有方向的，并且一条边的一对半边有相反的方向。
+
+![](http://upload-images.jianshu.io/upload_images/6808438-ee8f2a9145b4cd6e.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+对于每一条半边，我们存储下面的信息：
+
+1. 半边指向的顶点
+2. 半边相邻的面(当半边为网格边界的时候没有相邻的面)
+3. 一个面中的上/下一条半边
+4. 与它配对的另一条半边
+
+![](http://upload-images.jianshu.io/upload_images/6808438-4c280e15b8c93ce9.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+存储一个面需要4个字节，存储一个顶点需要16个字节，存储一条半边需要20个字节，平均一个顶点需要144个字节。
+
+这里可以优化使用数组的索引号而不是指针来存储具体的信息，这样在需要附加额外信息的时候会更加方便，同时由于数组在内存中是连续排布的，在进行内存管理的时候也会更加简单高效。
+
+## Directed-Edge Data Structure
+
+这种数据结构是Halfedge-Based Data Structure(半边数据结构)的一种特殊形式，只能够用于三角形网格。这种数据结构将连通性信息隐藏在了数组索引号的关系中。
+
+假设 *f* 是面的索引号，那么这个面3条半边的索引号分别为：
+
+![](http://upload-images.jianshu.io/upload_images/6808438-88d5310b44eed858.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+假设 *h* 为半边的索引，那么其相邻面的索引以及该半边在该面中的索引号为：
+
+![](http://upload-images.jianshu.io/upload_images/6808438-311e6a1506098ee7.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+假设要求该半边指向的下一个半边的索引号，那么只需要计算$(h + 1) \mod{3}$即可。
+
+每一个顶点存储其位置信息和从该点射出的半边的索引号；每一个半边存储与其配对的另一条反向的半边以及该半边对应的顶点(射出该半边的)的索引号。
+
+这样存储一个顶点需要16个字节，存储一条半边需要8个字节，平均一个顶点需要64个字节。
+
+该数据结构在网格的边界部分需要特殊处理索引号。另外该数据结构只能单纯的表示某种类型的网格，例如三角形网格或者四边形网格，而不能表示混合了三角形和四边形的网格。
