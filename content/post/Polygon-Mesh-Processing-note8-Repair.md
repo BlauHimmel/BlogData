@@ -10,9 +10,9 @@ tags: ["Mesh", "阅读笔记"]
 
 一些比较常见的“畸形”的情景有：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-0aa9d79cb35f86e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-0.png)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-d017e5dc768f4b42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-1.png)
 
 一般我们将模型修复算法粗略的分为下面两类：
 
@@ -40,7 +40,7 @@ tags: ["Mesh", "阅读笔记"]
 
 该算法不需要手动进行处理，且输出的模型是完全严丝合缝的(Watertight Model)，能够修复除了 **Handle** 外的其它类型的“畸形”。不过这种类型的“畸形”也可以通过一定方法移除掉。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-b3faac8636b281d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-2.png)
 
 从整体上看，算法相当于是对输入的模型进行了一次重采样，因而会造成诸如走样(Alias)、丢失模型特征的问题，并且模型上基于原有网格连接性的相关属性信息也会丢失。因为输出模型的三角形的数目会比输入模型的要多，所以还需要对输出的模型进行简化。并且算法是比较耗费内存的，所以往往很难再高分辨率的模型上运行。
 
@@ -52,19 +52,19 @@ tags: ["Mesh", "阅读笔记"]
 
 Registered Range Scan是一系列相互重叠的面片，这些面片可以用来表示输入模型。在将这些面片融合为一个单一的三角形网格的时候就由可能出现问题。由于输入数据中存在较大的重叠，所以曲面上的某一个点$\mathbf{x}$会被若干个面片表示。并且每一个面片都有自己的连接性属性，这些属性和其它的面片并不兼容。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-75d4f0612b311b18.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-3.png)
 
 #### Fused Range Scan
 
 Fused Range Scan是带边界(如Gap、Hole和Island)的流形(Manifold)网格。这些边界是由于扫描仪的实现上出现了遮挡物或者物体表面上的一些特殊属性，如透明或者高光造成的。我们的目标是找到并填补上这些洞(Hole)。更加高级的算法不仅仅是填上这些洞(Hole)，而且还根据该区域周围的几何特征为这个区域合成新的几何特征。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-ebd8e3085672abee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-4.png)
 
 #### Triangle Soup
 
 Triangle Soup是三角形的集合，并且几乎没有这些三角形的连接性信息。Triangle Soup通常出现在CAD建模中，由用户手动建立(通过一些已经定义好的元素来创建出目标模型的边界)。模型虽然只是由三角形构成，却可能出现各种类型的“畸形”。其中“相交(Intersection)”是最为常见的，对其的检测过程非常耗时。所以该类型通常多用于可视化而不是几何处理。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-46b09d4a794da02a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-5.png)
 
 #### Triangulated NURBS Patch
 
@@ -74,7 +74,7 @@ Triangulated NURBS Patch是一系列三角形网格的集合，最终的模型�
 
 Contoured Mesh是通过体积测定数据集(Volumetric Dataset)导出的网格模型。理论上导出的模型是一个流形(Manifold)，并且是密闭的(Watertight)。然而也会出现像下图那样的“畸形”(书中称之为 **Small Spurious Handle** )。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-9f10a3ff3ab5e2bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-6.png)
 
 体积测定数据(Volumetric Data)通常出现在构造实体几何(Constructive Solid Geometry)中，或者在医学图像(CT，核磁共振等)中用作某种中间表示形式。在数据集中的每一个点通常会被赋于一个标量值，负值代表在物体内部，正值代表在物体外部，零值则代表在物体表面上，这些点通常也被称为 **体像素(Voxel)**。
 
@@ -93,7 +93,7 @@ Badly Meshed Manifold是指包含了退化元素(Degenerate Element)的网格，
 
 改善这类网格的方法一般是 **网格重划分(Remeshing)**。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-b9f04574a876d137.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-7.png)
 
 ##  Surface-Oriented Algorithm
 
@@ -105,26 +105,26 @@ Surface-Oriented Algorithm直接对输入的网格进行修改，以对其进行
 
 假设$\psi(i, j, k)$是定义在三角形$(\mathbf{p}_i, \mathbf{p}_j, \mathbf{p}_k)$上质量函数，$\omega (i,j)$是多边形$\mathbf{p}_0$,...,$\mathbf{p}\_{n-1}$的子多边形 $\mathbf{p}_i$,...,$\mathbf{p}\_j$经过三角剖分后得到网格的最优质量，$\omega (i,j)$可以通过下面的迭代式递归的计算出来
 
-![](http://upload-images.jianshu.io/upload_images/6808438-75c0b1cfdddeecb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-8.png)
 
 其中整体的最优质量$\omega (0, n-1)$能够通过动态规划算法计算得到。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-af8435890e15fcd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-9.png)
 
 函数$\psi(i, j, k)$应该考虑下面两个因素：
 
 * $\Delta_{ijk}$和其周围三角形组成的二面角(等价于法向量的变化程度)
 * $\Delta_{ijk}$的面积
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-72b3d93ced98ae93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="α是最大的二面角，A是△ijk的面积" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note8-Repair/img-10.png" title="α是最大的二面角，A是△ijk的面积" >}}
 
 并且第一个因素的决定程度更高，所以
 
-![](http://upload-images.jianshu.io/upload_images/6808438-d0704aff4d467fbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-11.png)
 
 可以发现，我们在评估一个三角形的质量的时候考虑到了其周围的三角形。这些三角形可能是原来已经有的，也可能是新创建出来。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-75522a3718929db0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-12.png)
 
 在填补完成后，我们还需要对填补上去的网格进行一些调整，使得其顶点分布的密度以及边的平均长度于其周围的网格相匹配。
 
@@ -142,17 +142,17 @@ Surface-Oriented Algorithm直接对输入的网格进行修改，以对其进行
 
 拓扑简化的目的就是为了移除网格上的 **Handle** ，算法的基本思想如下图所示：首先将 **Handle** 沿着绿线切开，切开后模型上会出现两个“洞(Hole)”，然后使用之前提到的算法将这两个“洞(Hole)”给补上。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-3023d7cd9577fdc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-13.png)
 
 给定一个初始三角形$s$，算法通过对原网格执行Dijkstra算法计算得到$s$周围的Geodesic Region $\mathbf{R}_{\epsilon}(s)$。Dijkstra算法在计算得到最短路径的同时，还能得到每一个三角形到初始三角形 *s* 的最短路径上的上一个三角形(Parent Triangle)，记作$p(t)$，$p(t)$的上一个三角形记作$p^2(t)$...依此类推，路径上的最后一个点为$s$ 。
 
 $\mathbf{R}\_{\epsilon}(s)$ 包含一个或多个环状边界，当有一个环状边界在某一条边上触碰到自己的时候，就将它分裂为两个新环。如果是两个不同的环在$e_{12}$处相互触碰的时候就表示我们检测到了 **Handle** 。假设$t_1, t_2$是与$e\_{12}$相邻的两个三角形，假设$t_1$和$t_2$存在一个共同的祖先
 
-![](http://upload-images.jianshu.io/upload_images/6808438-114e4ec1e9eafc6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-14.png)
 
 则该 **Handle** 可以由下面的闭合路径确定
 
-![](http://upload-images.jianshu.io/upload_images/6808438-a965dfc2180bb336.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-15.png)
 
 然后我们沿着该路径将模型切开，并补上新产生的两个“洞(Hole)”。
 
@@ -176,7 +176,7 @@ $\mathbf{R}\_{\epsilon}(s)$ 包含一个或多个环状边界，当有一个环�
 
 首先使用八叉树对输入的模型进行划分，$\epsilon$在这里表示节点的最小直径。接下来对八叉树子节点进行分类(处于内部还是外部)。然后对处于模型边界上的节点进行 **膨胀(Dilation)** 操作，膨胀的距离为$ n = \frac{\rho}{\epsilon}$，这样直径小于$\rho$的Gap将会被修复。下一步，从外部向内部进行 **膨胀(Dilation)** 操作，以抵消前一步带来的模型体积的增大。
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-f2164d552f3003e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="紫色方格代表边界上的节点，绿色表示膨胀边界过程中影响到的节点，橙色表示从外部向内部膨胀过程中影响到的节点" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note8-Repair/img-16.png" title="紫色方格代表边界上的节点，绿色表示膨胀边界过程中影响到的节点，橙色表示从外部向内部膨胀过程中影响到的节点" >}}
 
 接下来使用Dual Contouring算法通过采样点进行重建工作即可。采样点通常取与三角形所在平面的平方距离最小值的点(模型简化那一章提到过)，如果找不到这样的平面(节点是通过膨胀操作得到的)，则可以通过平滑算子(Smoothing Operator)来采样得到采样点。
 
@@ -190,23 +190,23 @@ $\mathbf{R}\_{\epsilon}(s)$ 包含一个或多个环状边界，当有一个环�
 
 设$C_i$为有限区域，$N(i)$表示于其相邻的面的集合。那么对于$j \in N(i)$，交集$P\_{ij} = C_i \cap C_j$表示两区域相交部分多边形所在的平面，$t\_{ij}$表示区域边界平面上不被输入多边形(三角形)包含的部分的面积(称之为透明的)，$o\_{ij}$表示区域边界平面上被输入多边形(三角形)包含的部分的面积(称之为不透明的)，$a\_{ij}$表示平面的总面积。那么$s_i$与和其相邻的$s_j$的关系可以写成
 
-![](http://upload-images.jianshu.io/upload_images/6808438-6ef2a064a62baedf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-17.png)
 
 其中$A_i$表示区域$C_i$边界的面积之和
 
-![](http://upload-images.jianshu.io/upload_images/6808438-c39538006ad7ae86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-18.png)
 
 通过观察可以发现如果两个区域相交平面大部分为透明的，则有很大的可能它们都是处于内部或者都是处于外部的。如果大部分区域为不透明的，则有很大可能其中一方处于内部而另一方处于外部。
 
 上面的式子可以写成下面的矩阵的形式
 
-![](http://upload-images.jianshu.io/upload_images/6808438-25ae8262bf1d9beb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-19.png)
 
 最终通过枚举所有的区域$C_i$，如果其中一方是处于内部的而另一方是处于外部的，则将其边界$P\_{ij}$加入到重建的过程中。
 
 该算法不需要用户指定一些额外的参数，并且可以得到严丝合缝的模型(Watertight Model)。得到的结果中可能包含有 **Complex Edge** 和 **Singular Vertex** (参考开篇的图片)，这些可以使用前面提到的方法进行修复。不过，很难找到即具有鲁棒性又具有高效性的的BSP结构。
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-be49c7daf4ac99eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="BSP树(左)，硬度系数(中)，重建(右)" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note8-Repair/img-20.png" title="BSP树(左)，硬度系数(中)，重建(右)" >}}
 
 ###  Volumetric Repair on the Dual Grid
 
@@ -214,11 +214,11 @@ $\mathbf{R}\_{\epsilon}(s)$ 包含一个或多个环状边界，当有一个环�
 
 对于子集$F$，其边界$\partial F$可以定义为指向奇数个面的坐标系网格边的集合(如下图中红色圆点)。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-75f0c5196372dd85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-21.png)
 
 对于每一个边界上的回路$B_i$，接下来我们寻找另一个集合$G$，集合$G$与$B_i$相同，且它们的对称差集的边界为空集。然后将$F$进行替换，直到$F$的边界为空集。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-20dba0b02bc2f36b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note8-Repair/img-22.png)
 
 最后只需要使用Marching Cubes或者Dual Contouring算法进行最后的重建工作即可。
 

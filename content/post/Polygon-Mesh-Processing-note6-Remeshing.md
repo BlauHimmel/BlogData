@@ -37,7 +37,7 @@ tags: ["Mesh", "阅读笔记"]
 
 对于三角形的元素来说，可以通过其外接圆的半径和三边中最短的一条边的比值来度量它具有的各向同性(Isotropic)的强度。
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-2fbc4efb6ea637ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="各向同性(Isotropic)：右图明显比左图更强" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-0.png" title="各向同性(Isotropic)：右图明显比左图更强" >}}
 
 **各向异性(Anisotropic)** 的元素在网格曲面上各个方向的形状往往都不同，通常这些元素的都朝向(oriented)主曲率的方向。这种元素往往能够更好的表现几何体的结构特征。它的另一个优势在于，相对于 **各向同性(Isotropic)** ，得到同样质量的网格其使用的元素的个数更少。
 
@@ -79,13 +79,13 @@ tags: ["Mesh", "阅读笔记"]
 
  **沃罗诺伊图(Voronoi Diagrams)**，简单的说就是基于一组 **特定点** 将空间分割成不同的区域，而每一个区域都只包含这些点中的一个，并且该区域内的任意点到这个 **特定点** 的距离 **小于** 该这个任意点到空间中其它 **特定点** 的距离。其中这些被分割的区域称作 **沃罗诺伊区域(Voronoi Region)**。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-aaf470cb369f8085.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-1.gif)
 
 上面这张图形象的描述了 **沃罗诺伊图** 的生成过程。
 
 下面我们用数学的形式来表达 **沃罗诺伊区域** 。给定任意维空间$R_d$上的一个点的集合${\mathbf{p}_1,...,\mathbf{p}_n}$，点\mathbf{p}_i的 **沃罗诺伊区域** $V (\mathbf{p}_i)$ 是：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-c23617859c4c55e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)。
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-2.png)。
 
 **沃罗诺伊图** 可以看作空间$R_d$上的一个划分，因为该空间上任意一个点必定属于某一个 **沃罗诺伊区域** 。
 
@@ -95,7 +95,7 @@ tags: ["Mesh", "阅读笔记"]
 
 **沃罗诺伊图** 的对偶结构被称为 **德洛内三角剖分(Delaunay Triangulations)**。通过连接沃罗诺伊区域内的顶点可以得到其对应的对偶结构，如下图所示：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-ad525910f3be35ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-3.png)
 
 **德洛内三角剖分** 的 **三角形** $(\mathbf{p}, \mathbf{q}, \mathbf{r})$与 **沃罗诺伊区域** $V(\mathbf{p})$，$V(\mathbf{q})$，$V(\mathbf{r})$相交得到的 **顶点** 对偶。
 
@@ -111,7 +111,7 @@ tags: ["Mesh", "阅读笔记"]
 
 另外在进行 **德洛内三角剖分** 的时候还可以对其加以限制，例如在2维空间上可以用闭合的平面曲线来进行限制，在3维空间上用闭合曲面来进行限制。
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-bb4777bbb52038df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="蓝色的曲线是作为限制的闭合曲线，红色的直线是与之相交的沃罗诺伊图的边" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-4.png" title="蓝色的曲线是作为限制的闭合曲线，红色的直线是与之相交的沃罗诺伊图的边" >}}
 
 ##  三角形网格的网格重划分(Triangle-Based Remeshing)
 
@@ -127,17 +127,17 @@ tags: ["Mesh", "阅读笔记"]
 
 * **Surface Delaunay ball**
 一个Surface Delaunay ball是一个位于输入网格曲面中心的球，这个球包围了一个德洛内三角剖分中的一个特定的面。一个中心位置为$\mathbf{c}$，半径为$r$，包围了面$f$的Surface Delaunay ball可以记作：
-![](http://upload-images.jianshu.io/upload_images/6808438-da9333565061f46e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-5.png)
 
 * **Medial axis**
 给定n维空间上的一个集合$O$，它的Medial axis $M(O)$是一系列点的集合，以这些点为中心的超球面与集合$O$的边界相切的点的个数至少为$2$。
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-6a518e5d0b8da9a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="椭圆区域为O，中间的直线为Medial axis" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-6.png" title="椭圆区域为O，中间的直线为Medial axis" >}}
 
 * **Medial ball**
 中心在Medial axis上的球(ball)，其内部被集合$O$包含并且它的包围球面与$O$的边界相交，称这样的球(ball)为Medial ball。
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-6a8c48ca8b8a3daa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="最外侧的实线包含的集合为O，集合内的实线为Medial axis，圆圈所围成的区域为Medial ball" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-7.png" title="最外侧的实线包含的集合为O，集合内的实线为Medial axis，圆圈所围成的区域为Medial ball" >}}
 
 * **Reach(Local feature size)**
 集合$O$内的点$\mathbf{x}$到集合O上的Medial axis的距离称为Reach或者Local feature size。
@@ -148,17 +148,17 @@ tags: ["Mesh", "阅读笔记"]
 
 **“不好(bad)”的面** 的定义为：假定有一个Surface Delaunay ball—— $B_f = B(\mathbf{c}_f，r_f)$，满足$r_f > \Psi(\mathbf{c}_f)$，其中$\Psi$是定义在$S$上的函数，$\Psi$满足下列条件：存在$S$上的一个点$\mathbf{x}$，使得
 
-![](http://upload-images.jianshu.io/upload_images/6808438-e309f1959f6b76d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-8.png)
 
 初始化的时候点集$P$选取$S$中每个联通区域上足够近的三个点，然后执行下面的算法
 
-![](http://upload-images.jianshu.io/upload_images/6808438-4c7cd1c2f33ba44f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-9.png)
 
 当$\Psi$满足，其中$\epsilon = 0.2$，$\rho = reach$，上面的算法会在经过有限次的迭代之后终止，并且算法输出的结果——带限制的3维德洛内三角剖分与输入的网格曲面相互同胚。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-5368bc7557bb71da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-10.png)
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-236b16d4ba1f20ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="左图为原模型，右图为算法处理后的模型" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-11.png" title="左图为原模型，右图为算法处理后的模型" >}}
 
 上述算法由于大量涉及到求直线和三角形面求交的过程，所以可以使用八叉树的数据结构进行加速。
 
@@ -181,7 +181,7 @@ Variational Remeshing地主要思想是：将一系列的点尽可能平均地�
 
 求一个沃罗诺伊区域$V_i$的重心$\mathbf{c}_i$的方法如下：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-ab6161baa0041917.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-12.png)
 
 $\rho(\mathbf{x})$是的密度函数，通常取一个常数(即区域内的质量分布是均匀的)。
 
@@ -189,7 +189,7 @@ Variational Algorithm即变分算法通常需要首先定义一个能量函数�
 
 这里我们定义如下地能量函数：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-8ce2ec1cb1322266.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-13.png)
 
 通过观察可以知道，当$\mathbf{p}_i$是对应沃罗诺伊区域$V_i$上的重心的时候，上面的能量函数取最小值。
 
@@ -200,11 +200,11 @@ Relaxation Method)，通过不断迭代建立一个 **CVT** 。给定一个密�
 2. 计算每一个沃罗诺伊区域的重心$\mathbf{c}_i$，然后将$\mathbf{p}_i$移动到$\mathbf{c}_i$的位置
 3. 重复执行(1)(2)直到满足收敛条件
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-f2bf362e84285a45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="从左到右：原始的沃罗诺伊划分；经过一次迭代后的划分；经过三次迭代的划分；Centroidal Voronoi Tessellation(CVT)" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-14.png" title="从左到右：原始的沃罗诺伊划分；经过一次迭代后的划分；经过三次迭代的划分；Centroidal Voronoi Tessellation(CVT)" >}}
 
 为了能够在3D网格上应用同样的算法，我们先将网格进行保角参数化，然后在参数空间上应用Lloyd's Algorithm。参数化的过程中会导致三角形变形，密度函数 *ρ* 在这里就被用来抵消这种变形，通过在多个带边界限制的沃罗诺伊图上分别应用Lloyd's Algorithm，网格上一些诸如褶皱、夹角的特征能够得到保留。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-1177ce768876d852.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-15.png)
 
 ### Incremental Remeshing
 
@@ -212,35 +212,35 @@ Incremental Remeshing相较于之前的Variational Remeshing来说实现起来�
 
 算法首先输入一个目标边长(Target Edge Length)，然后根据这个输入对网格中较长的边进行Split操作，对较短的边进行Collapse操作，并且会移动顶点的位置，直到所有边的长度和输入的目标边长(Target Edge Length)大致相当。算法的伪代码如下：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-1a8a3e99a6515f2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-16.png)
 
 注意到我们通过输入的长度得到一个区间$[low, high]$，如果边长在区间左侧则认为这条边太短需要进行Collapse操作；如果边长在区间的右侧则认为这条边太长，需要进行Split操作。
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-487d6acb63e9d136.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="网格的基本操作" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-17.png" title="网格的基本操作" >}}
 
 **split_long_edges(high)** 函数会遍历当前网格中所有的边，如果其长度大于high，那么我们就从这条边的中点对其进行Split操作。操作之后，和这条边相邻的两个三角形都会被一分为二。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-0ca8d7c1a463d571.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-18.png)
 
 **collapse_short_edges(low, high)** 函数同样对当前网格的所有边进行遍历，对长度小于low的边进行Collapse操作。不过需要注意的一点是，在进行Collapse操作的时候需要检查经过该操作是否会产生长度大于high的边，如果不产生，那么我们进行此次的Collapse操作，否则不进行。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-97cf467fab829b60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-19.png)
 
 **equalize_valences()** 函数对边进行Flip操作来调整各个顶点的Valence(于该顶点相邻的顶点的个数)，使其尽量地接近目标Valence。函数会遍历当前网格的所有边，并尝试对其进行Flip操作，然后比较Flip操作前后和这条边相邻的两个三角形上的四个顶点其Valence和目标值的偏差，如果偏差没有变小那么撤销之前的Flip操作(对这条边再进行一次Flip操作)。
 
 **target_val(v)** 函数接受一个顶点做为输入，如果该顶点是边界上的点那么函数返回4，如果是内部的点则返回6。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-a7b166e6d6515a4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-20.png)
 
 **tangential_relaxation()** 函数对当前的网格进行反复的平滑过滤。假定$\mathbf{p}$是网格上的某一个点，$\mathbf{n}$是该点的法线量，然后使用下面的方法计算出点$\mathbf{q}$ ：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-d95bbfc911b22d0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-21.png)
 
 然后我们将$\mathbf{q}$向$\mathbf{p}$点的方向投影，得到$\mathbf{p}$的新位置：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-9d02aa7d62cb59c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-22.png)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-9986062584c50547.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-23.png)
 
 **project_to_surface()** 函数将顶点投影到原曲面上。
 
@@ -267,7 +267,7 @@ Incremental Remeshing相较于之前的Variational Remeshing来说实现起来�
 
 * 基于曲线的采样(Curve-based Sampling)：通过放置一系列与方向场相切的曲线来生成一个曲线网络，这样网络上的每一个交点正好是生成的顶点。此方法能够很好的控制边的朝向性和对齐性，不过生成的四边形网格上可能会有T-Junction，所以并不完全是一个四边形网格。
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-de2e571b8af3a8e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="T-Junction" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-24.png" title="T-Junction" >}}
 
 * 等值线法(Contouring)：一个能得到纯四边形网格(Pure Quadrangle Mesh)的方法包含有如下：计算两个标量函数、将经过选取的一系列等值带入这两个函数中从而得到四边形网格的一些列小四边形。
 
@@ -275,13 +275,13 @@ Incremental Remeshing相较于之前的Variational Remeshing来说实现起来�
 
 * 首先计算每个顶点的曲率张量(Curvature Tensor)来还原出一个连续(continuous)的模型。计算完张量之后，丢弃掉其中法向量的分量。然后通过计算离散保角参数化(Discrete Conformal Parameterization)得到了一个2维分段张量场，然后对其使用高斯核函数做卷积运算，得到一个平滑的曲率方向场，并且提取出张量场中的脐点(Umbilics)。
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-5501ce3a251873d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="曲率张量" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-25.png" title="曲率张量" >}}
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-a9c2cef349c9997f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="左图：初始主方向场；右图：平滑后的主方向场；图中彩色的点为脐点" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-26.png" title="左图：初始主方向场；右图：平滑后的主方向场；图中彩色的点为脐点" >}}
 
 * 第二步是在参数空间上上进行重新采样。对于各向异性的区域(Anisotropic Area)，建立由一些列曲率线(沿着主曲率的方法)组成的网格；而对于各向同性的区域(Isotropic Area)则使用普通的顶点采样的方法
 
-![](http://upload-images.jianshu.io/upload_images/6808438-01c0f0e1ecd7d922.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-27.png)
 
 * 最后一步通过第二部采样出来的点获得边，在各向异性的区域我们将曲率线拉直以得到边，在各向同性的区域我们通过德洛内三角剖分来获得边。最终得到的多边形网格中既包含三角形也包含了四边形。
 

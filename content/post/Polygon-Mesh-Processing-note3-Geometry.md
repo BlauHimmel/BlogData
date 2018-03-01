@@ -58,7 +58,7 @@ $$
 
 曲线的 **曲率** (curvature)就是针对曲线上某个点的切线方向角对弧长的转动率，即单位弧长内曲线转过的角度。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-01fcd18e6153cb0f.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-0.jpeg)
 
 假设正则曲线的参数方程的参数为其弧长，图像如上图所示，$\alpha$表示是曲线上的切向量(即$p(s)$的导数$p'(s)$)，根据定义曲线的曲率为：
 
@@ -84,7 +84,7 @@ $$
 
 我们知道弧长与半径的比值是弧度。对于这一段圆弧 **曲率** 的值为弧度于弧长的比值，而半径的值为弧长于弧度的比值。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-25e3b02fe1b946fe.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-1.jpeg)
 
 对于 **曲率** 和 **曲率半径** ，可以得到下面的关系：
 
@@ -100,7 +100,7 @@ $$
 
 展开之前，首先沿着子午线将其“切开”，然后按下面这个样子进行展开：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-59a3f914125ce047.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-2.jpeg)
 
 可以发现，北极点被变换为了线段$AC$，而南极点被变换了线段$BD$
 
@@ -116,7 +116,7 @@ $$
 
 后一种坐标中有两个参数$\theta$和$\phi$，其意义可以通过下面这张图来理解(和球坐标非常类似)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-b446cad90979be1b.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-3.jpeg)
 
 理解后就不难得出两种坐标的转换方法：
 
@@ -138,7 +138,7 @@ $$
 
 通过$\theta$和$\phi$这两个参数，可以画出两组类似经纬度的平行线，通过这些平行线，可以清楚的观察出球面不同部分被扭曲的程度。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-3253e8319401e63d.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-4.jpeg)
 
 ### 度量性质(Metric Property)
 
@@ -177,7 +177,7 @@ $$
 
 很明显这两个方程分别是当曲面方程的某个参数固定后，以另一个参数为参数的方程。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-a071652b811fa5f5.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-5.jpeg)
 
 通过上面这张图，能够很清晰的看出$\mathbf{C}_v$, $\mathbf{C}_u$, $\mathbf{x}_v$, $\mathbf{x}_u$的具体含义。
 
@@ -203,19 +203,19 @@ $$
 
 这时曲面在点$(u_0, v_0)$处，$\mathbf{w}$方向的方向导数为：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-d27f880168121fce.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-6.jpeg)
 
 向量$\mathbf{w}$是定义在三维空间下的，而已知的方向向量是在二维参数空间上的，现在要将其从参数空间变换为曲面上的切向量：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-105e814e65fbe0ab.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-7.jpeg)
 
 只需要应用到雅可比矩阵即可完成这个变换：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-85b1b06099e25294.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-8.jpeg)
 
 此时雅可比矩阵的值为：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-b1c644496c68d47c.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-9.jpeg)
 
 ### 曲面的第一基本型
 
@@ -225,47 +225,47 @@ $$
 
 向量在曲面空间和参数空间下的表示形式不同，单数可以明确的一点是，无论如何表示，向量之间的夹角是不会变的。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-68135522121ffda9.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-10.jpeg)
 
 在上面的等式中，$\mathbf{J}$乘以$\mathbf{J}_T$这一部分就被称为 **曲面的第一基本型**
 
-![](http://upload-images.jianshu.io/upload_images/6808438-f6ff4617f67ebf06.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-11.jpeg)
 
 借由$\mathbf{Ⅰ}$，要通过参数来表示下面曲线的弧长：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-1a35bf766c5dde6f.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-12.jpeg)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-1433579c305a58b5.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-13.jpeg)
 
 首先观察曲面的弧长公式：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-2007b0fcd031ae23.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-14.jpeg)
 
 接下来，用参数$t$来表示切向量$\mathbf{w}(u_t, v_t)$，则其模长为：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-c2c05df7e19cb9ba.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-15.jpeg)
 
 最后带入计算可以得到弧长公式：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-a436b723be84c2ba.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-16.jpeg)
 
 同理，可以用下面的方法求得曲面的面积：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-f8a8cdd4a7fdc5b7.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-17.jpeg)
 
 ### 曲面的曲率
 
 曲面的曲率的定义是由曲线的曲率的定义扩充而来的，对于曲面上的一点，存在无数个切向量。对于曲面上的一点$\mathbf{p}$，以及一条切向量$\mathbf{t}$，这时可以定义曲率为：切向量$\mathbf{t}$和曲面在这一点的法向量所成平面与曲面相交形成的直线在点$\mathbf{p}$处的曲率。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-ba37cefc7abfc7a9.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-18.jpeg)
 
 将这个曲率写成式子为：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-baa96e73cb164c47.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-19.jpeg)
 
 其中$\mathbf{Ⅱ}$为第二基本型
 
-![](http://upload-images.jianshu.io/upload_images/6808438-f52ddb74259bb0fd.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-20.jpeg)
 
 上面关于曲面曲率的函数在切线方向变化的时候会有两个极值(极大值和极小值)，一般称它们为 **主曲率(principal curvatures)** ，如果两极值不相等，就把取这两个极值时的两个切向量称为 **主方向(principal directions)** 。如果两极值相等，则曲面上这一点称为 **脐点(umbilical)** ，曲面上这一点的所有切向量都可以称为 **主方向(principal directions)** ，并且曲面这一点各方向的曲率相等。特殊地，当且仅当曲面为球面或平面时，其上所有的点都是 **脐点(umbilical)** 。
 
@@ -273,7 +273,7 @@ $$
 
 对于曲面的两个 **主曲率** 和其在同一点任意方向的曲率，有如下的关系：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-4734e04edf54b025.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-21.jpeg)
 
 其中$\phi$为 **主方向** $\mathbf{t}_1$和指定方向$\mathbf{t}$的夹角。可以看出，曲面的曲率仅仅由其两个 **主曲率** 决定，这一点任意方向的法曲率都是这两个 **主曲率** 的凸组合(convex combination)，另外还能得出的一点是 **主方向** 永远是相互正交的。
 
@@ -281,7 +281,7 @@ $$
 
 曲面的某个区域内的性质同样可以用 **曲率张量** 来表示，**曲率张量** $\mathbf{C}$可以用下面的方法得到：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-c85d69dbbeac1fa7.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-22.jpeg)
 
 其中D是对角线元素为$\kappa_1$, $\kappa_2$, $0$的三阶方阵，P也为三阶方阵，由$\mathbf{t_1}$, $\mathbf{t_2}$ , $\mathbf{n}_1$三个列向量组成。
 
@@ -291,11 +291,11 @@ $$
 
 * **平均曲率**
 
-![](http://upload-images.jianshu.io/upload_images/6808438-e16ee4ec2bf7d9f5.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-23.jpeg)
 
 *  **高斯曲率**
 
-![](http://upload-images.jianshu.io/upload_images/6808438-d5ccd6b790c620cd.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-24.jpeg)
 
  高斯曲率可以将曲面上的点分为3类：
 
@@ -307,7 +307,7 @@ $$
 
 高斯曲率和平均曲率通常用在曲面的可视化分析上
 
-![左图为平均曲率，右图为高斯曲率](http://upload-images.jianshu.io/upload_images/6808438-85f8d6876ea423e4.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![左图为平均曲率，右图为高斯曲率](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-25.jpeg)
 
 ### 内蕴几何学(Intrinsic geometry)
 
@@ -321,15 +321,15 @@ $$
 
 一般称某函数梯度的散度为 **拉普拉斯算子**，对于二元函数$f(u,v)$，其在欧式空间上的二阶差分算子(拉普拉斯算子)可以写为：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-8dde869145dc78c3.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-26.jpeg)
 
 拉普拉斯算子还可以推广到二阶流形曲面$S$上，其推广形式称为 **拉普拉斯-贝尔特拉米算子** ，定义为：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-8b4c2a7bf89bcf5b.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-27.jpeg)
 
 对于曲面上某一个具体的点$\mathbf{x}$，其 **拉普拉斯-贝尔特拉米算子** 和其 **平均曲率** 存在下面的关系：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-a99b55cd91c8035c.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-28.jpeg)
 
 虽然这个式子说明 **平均曲率** (非内蕴的)和 **拉普拉斯-贝尔特拉米算子** 之间存在某种关系，但是 **拉普拉斯-贝尔特拉米算子** 本身仅取决于 **第一基本型**，是内蕴的。
 
@@ -345,7 +345,7 @@ $$
 
 常用的由下面三种定义这个面积的方法，其区别主要是在顶点周围的三角形中取点的方式不同：
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-003bf27aacfd39c8.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="重心(左图)，外心(中图)，混合点(右图)" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note3-Geometry/img-29.jpeg" title="重心(左图)，外心(中图)，混合点(右图)" >}}
 
 
 其中右图中，当三角形为钝角三角形时则取中心点对边的中点，否则取三角形的外心。
@@ -354,11 +354,11 @@ $$
 
 在3D网格中，要计算某个三角面的法向量是比较容易的，只需要取两条边向量坐叉乘即可：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-8affd18d57953710.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-30.jpeg)
 
 如果要计算某个顶点的法向量，同样考虑对顶点周围相邻的三角形的法向量做加权平均：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-aaca3623815b9c48.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-31.jpeg)
 
 权值αT的取法，一般常用的有下面几种：
 
@@ -374,39 +374,39 @@ $$
 
 对于分段线性函数$f$来说，其在三角形顶点上有对应的值。可以考虑用拉格朗日插值法来表示三角上任意一点的函数值($\mathbf{u}$是二维参数)：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-c9b09410acda57b3.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-32.jpeg)
 
 由于拉格朗日插值公式的基函数$B$具有下面的性质
 
-![](http://upload-images.jianshu.io/upload_images/6808438-b0ae2c810fc17094.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-33.jpeg)
 
 两边同时做梯度运算可以得到
 
-![](http://upload-images.jianshu.io/upload_images/6808438-10fe2b5fa1f29854.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-34.jpeg)
 
 消去$B_i$后原来的式子为
 
-![](http://upload-images.jianshu.io/upload_images/6808438-749e1239afe79716.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-35.jpeg)
 
 顶点i处基函数的梯度为从顶点$i$处沿着对边上高的方向的向量，且向量的模长为高的倒数，化简后(向量旋转90度后除以底边的长得到单位向量，再除以高度的结果，其中底边长乘以高度整好为面积的两倍)为：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-e03dbfeadae1d8ee.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-36.jpeg)
 
 代入后可以得到三角形上分段线性函数的梯度为
 
-![](http://upload-images.jianshu.io/upload_images/6808438-5fc277fb88fc440b.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-37.jpeg)
 
 ### 离散形式的拉普拉斯算子
 
 * Uniform形式的拉普拉斯算子
 
-![](http://upload-images.jianshu.io/upload_images/6808438-315e4570d98ceecd.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-38.jpeg)
 
 这一种形式直观上来说就是以中心点$i$为起点，相邻顶点平均值为终点的向量。
 
 由于平面的平均曲率$H$为$0$，这时算子的结果应该是$0$，不过上式的结果并不一定是非0的，所以这种方法不太适合用在非等距网格上。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-a99b55cd91c8035c.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-28.jpeg)
 
 这种方法只考虑了网格的连接性，所以使用范围有限。
 
@@ -414,30 +414,30 @@ $$
 
 这种形式更加的精准，直接计算顶点$v_i$周围的平均区域(之前提到过，有若干种取法)，然后对其梯度的散度进行曲面积分，然后使用 *散度定理(高斯公式)* 进行展开计算，最后可以得到：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-7dc2b735a6dc47de.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-40.jpeg)
 
 * 离散散度
 
 因为拉普拉斯算子的定义为是梯度的散度，对于每一个三角形T给定一个向量$\mathbf{w}$(如个给定分段线性函数$f$下的梯度向量)，则其散度为
 
-![](http://upload-images.jianshu.io/upload_images/6808438-93bab32df4ea58b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-41.png)
 
 ### 离散曲率
 
 根据上面的式子，可以得到在离散形式下的 **平均曲率** ：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-82412747b35a394a.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-42.jpeg)
 
 书中引用 **Meyer et al. 03** 这篇文章中提到了离散形式下 **高斯曲率** 的表示方式：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-6640c416c441bb1f.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-43.jpeg)
 
 根据 **高斯曲率** 、**平均曲率** 和两个 **主曲率** 的关系，可以得到 **主曲率** 的计算方法：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-75d86f734e3da122.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-44.jpeg)
 
 ### 离散形式的曲率张量
 
-![](http://upload-images.jianshu.io/upload_images/6808438-913b9400640120cd.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note3-Geometry/img-45.jpeg)
 
 其中$\beta(\mathbf{e})$表示和边$\mathbf{e}$相邻三角形所在平面的有方向的二面角，$\mathbf{e} \cap A(v)$表示边$\mathbf{e}$在区域A中的长度，$\mathbf{\bar{e}}$指边$\mathbf{e}$的单位向量。

@@ -16,9 +16,9 @@ tags: ["Mesh", "阅读笔记"]
 
 以平面上的单位圆为例，它的参数方程和隐式方程如下：
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-41f76f59db839150.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="参数方程" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note1-Surface/img-0.jpeg" title="参数方程" >}}
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-6f61bafc777a5227.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="隐式方程" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note1-Surface/img-1.jpeg" title="隐式方程" >}}
 
 在实际中，一般根据实际需求采用不同的表示方法，这些需求一般分为如下3点：
 
@@ -38,9 +38,9 @@ tags: ["Mesh", "阅读笔记"]
 
 以下面两种情况为例，无限细小特征指的两个正方体表面相连接的部分。
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-6568eccb4a55b45c.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="通过点相连接" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note1-Surface/img-2.jpeg" title="通过点相连接" >}}
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-b712402774ee43c4.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="通过面相连接" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note1-Surface/img-3.jpeg" title="通过面相连接" >}}
 
 这样两个正方体组成的组合体的外表面就不能称为一个面。
 
@@ -48,9 +48,9 @@ tags: ["Mesh", "阅读笔记"]
 
 而把上面的两个组合体连接的部分变成下面这个样子之后，就不存在所谓的“通过无限细小特征相连接”的情况了。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-f67bcada8986fc73.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note1-Surface/img-4.jpeg)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-84be24ffb1f6c23c.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note1-Surface/img-5.jpeg)
 
 这样组合体可以称之为：*non-degenerate 3D solid*
 
@@ -66,7 +66,7 @@ tags: ["Mesh", "阅读笔记"]
 
 而对于一般的**闭合曲面**来说亏格n就是几何体上洞眼的数目
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-8324322c1a448d54.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="n = 0(左) n = 1(中) n = 2(右" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note1-Surface/img-6.jpeg" title="n = 0(左) n = 1(中) n = 2(右" >}}
 
 对于一个三角形网格，基于上面的式子还能得到下面的关系：
 

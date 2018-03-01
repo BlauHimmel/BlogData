@@ -38,33 +38,33 @@ Vertex Clustering的另一个优点是通过定义一个不同的聚类(Clusteri
 
 记小晶胞(Cell)内的某个三角形所在的平面为
 
-![](http://upload-images.jianshu.io/upload_images/6808438-fab86d258b808fbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-0.png)
 
 其中$\mathbf{x}_i$为平面上的某一点，$\mathbf{n}_i$为它的法向量。那么任意一点$\mathbf{x}$到该平面的距离的平方为
 
-![](http://upload-images.jianshu.io/upload_images/6808438-b6ff0a0a0b756bca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-1.png)
 
 我们可以把$\mathbf{x}$和$\mathbf{n}$写成其次坐标来简化上面的式子，即$ \mathbf{x} =（ \mathbf{x} ,1),\  \mathbf{n}_i = (\mathbf{n}_i, -d)$，得到
 
-![](http://upload-images.jianshu.io/upload_images/6808438-cf422107d6af5a1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-2.png)
 
 使用同样的方法计算并累加这个小晶胞(Cell)内所有的三角形，得到(称之为二次误差度量Quadric Error Metric)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-da3a22d259d255b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-3.png)
 
 通过解下面这个线性方程，我们能够得到$\mathbf{x}$的最优解
 
-![](http://upload-images.jianshu.io/upload_images/6808438-5703011f02ef8c14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-4.png)
 
 其中矩阵$\mathbf{A}$和向量$\mathbf{b}$，可以从$\mathbf{Q}$中得到
 
-![](http://upload-images.jianshu.io/upload_images/6808438-f80d0f89a97bfe34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-5.png)
 
 针对不规则的三角剖分网格，我们可以使用三角形的面积最为权重，改写上面的式子为下面的形式
 
-![](http://upload-images.jianshu.io/upload_images/6808438-4670d86f7a3138bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-6.png)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-fbe81fafa07173b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-7.png)
 
 之后使用同样的方法进行计算即可。
 
@@ -78,7 +78,7 @@ Incremental Decimation的主要思想是：通过不断地迭代来逐渐移除�
 
 移除顶点的方法有很多，一个准则就是——越简单越好。即我们使用多个简单操作的组合来代替一些复杂的操作，常用的三种操作如下图所示：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-4aeec5938e14ccfb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-8.png)
 
 #### Vertex Removal
 
@@ -102,7 +102,7 @@ Incremental Decimation的主要思想是：通过不断地迭代来逐渐移除�
 
 如果不满足上述两个条件，则会分别出现下图的情况
 
-![](http://upload-images.jianshu.io/upload_images/6808438-75ad80457da6575e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-9.png)
 
 #### Vertex Contraction
 
@@ -120,13 +120,13 @@ Incremental Decimation的主要思想是：通过不断地迭代来逐渐移除�
 
 **Error Accumulation** 法通过累加与顶点$\mathbf{p}$ **相邻的所有三角形** 来计算某个顶点$\mathbf{p}$的误差矩阵$\mathbf{Q}_p$。当顶点$\mathbf{p}$和另一个顶点$\mathbf{q}$通过Collapse操作移动到一个新的顶点$\mathbf{r}$的时候，则有$\mathbf{Q}_r = \mathbf{Q}_p + \mathbf{Q}_q$，然后使用前面介绍的公式得到方程
 
-![](http://upload-images.jianshu.io/upload_images/6808438-da3a22d259d255b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-3.png)
 
 通过解该方程就能得到$\mathbf{r}$的最优的位置了。在这里我们使用点到平面的距离来近似点到三角形的距离，这会导致真实的误差偏小；另外新的误差矩阵$\mathbf{Q}_r$是通过累加顶点$\mathbf{p}$和顶点$\mathbf{q}$的误差矩阵得到的，这之中会有一部分三角被重复计算，这回导致误差偏大。总的来说，这两者会相互抵消一部分。
 
 另一方面，每一个顶点只需要存储一个4*4的矩阵，误差可以通过计算
 
-![](http://upload-images.jianshu.io/upload_images/6808438-7c5a7930b5301f93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-11.png)
 
 得到。因为无论顶点$\mathbf{x}$周围有多少相邻的平面(已经被累加到矩阵$\mathbf{Q}$里)，计算所需要的时间都是常数，所以这个方法是这三种中使用最广泛的一种。
 
@@ -134,7 +134,7 @@ Incremental Decimation的主要思想是：通过不断地迭代来逐渐移除�
 
 给定集合$A$和$B$，对于每一个集合$A$中的元素$a$，首先得到元素$a$到集合$B$中每一个元素距离的最小值$d_a$。集合$A$中所有元素对应的$d_a$的最大值即为集合$A$到集合$B$的Hausdorff距离，记为$H(A,B)$，通常$H(A,B)\neq H(B,A)$。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-1abbce5e5c533223.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-12.png)
 
 通过计算原模型到简化后模型的Hausdorff距离，我们能够得到逼近误差。为了计算Hausdorff距离，我们会不断地追踪整个简化的过程。每当进行 **Edge Collapse** 操作的时候，我们都将被移动的点$\mathbf{p}$和$\mathbf{q}$记录到其周围区域中离它最近的三角形中。这样每一个三角形在任何时刻都记录着原模型中里它最近点的列表。这样我们是需要找到这些列表中的最大值就能够求得Hausdorff距离。
 
@@ -154,40 +154,40 @@ Incremental Decimation的主要思想是：通过不断地迭代来逐渐移除�
 
 ## Shape Approximation
 
-![](http://upload-images.jianshu.io/upload_images/6808438-5769c77775b842c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-13.png)
 
 算法的全称是Variational Shape Approximation (VSA) ，VSA产生具有各向异性的网格，并且质量较好。并且VSA不需要输入模型的全局参数化信息和局部的微分量。
 
 假设M是一个三角形网格，我们M划分为k个区域
 
-![](http://upload-images.jianshu.io/upload_images/6808438-4e2be773598866a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-14.png)
 
 然后我们定义一个包含有k个“代理(Proxy)平面”的集合
 
-![](http://upload-images.jianshu.io/upload_images/6808438-2327a521b063a774.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-15.png)
 
 每一个代理平面可以通过平面上的任意一点和它的法向量决定
 
-![](http://upload-images.jianshu.io/upload_images/6808438-2a8697c6f901eea6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-16.png)
 
 在VSA中，我们通常使用下面两种方式来衡量代理平面和三角形网格某个区域的距离：
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-f523336e8317e3b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="①" >}}
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-3fa465da78deac12.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="②" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note7-Simplification/img-17.png" title="①" >}}
+{{< figure src="/img/post/Polygon-Mesh-Processing-note7-Simplification/img-18.png" title="②" >}}
 
 ①式的被积函数正好是三角形网格区域$\mathbf{R}_i$上的点$\mathbf{x}$到代理平面$\mathbf{p}_i$的距离的平方。
 
 VSA的主要思想是：给定划分数k和一个距离衡量函数$E$(①或②)，找到一组划分
 
-![](http://upload-images.jianshu.io/upload_images/6808438-4ab6adeb6d87a33f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-19.png)
 
 和一组代理平面
 
-![](http://upload-images.jianshu.io/upload_images/6808438-b7401498316328b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-20.png)
 
 使得下面的全局形变量$E$取最小值。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-10ad93a43e296ed9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-21.png)
 
 最后根据得到的一组代理平面，我们能够得到简化后的模型。
 
@@ -197,17 +197,17 @@ VSA的主要思想是：给定划分数k和一个距离衡量函数$E$(①或②
 
 在几何划分阶段，代理平面会被固定
 
-![](http://upload-images.jianshu.io/upload_images/6808438-b7401498316328b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-20.png)
 
 区域划分会被修改以最小化全局形变量$E$。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-4ab6adeb6d87a33f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-19.png)
 
 首先，算法会通过遍历选择区域$\mathbf{R}_i$的每一个三角形并分别计算$E(t, \mathbf{P}_i)$的值，然后找到该值最小的三角形$t_i$。三角形$t_i$（所在的平面）是$\mathbf{R}_i$中与代理平面$\mathbf{P}_i$最为接近的。
 
 对于每一个区域有：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-cecef98a205061ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-24.png)
 
 对于三角形$t_i$周围的三角形$r$ ，我们以$E(r, \mathbf{P}_i)$为优先级，插入一个优先队列中。
 
@@ -215,11 +215,11 @@ VSA的主要思想是：给定划分数k和一个距离衡量函数$E$(①或②
 
 算法的伪代码是：
 
-![](http://upload-images.jianshu.io/upload_images/6808438-0904428be944b42a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-25.png)
 
 算法初始化的时候会在输入的网格上随机的选择k个三角形，按照
 
-![](http://upload-images.jianshu.io/upload_images/6808438-cecef98a205061ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-24.png)
 
 的方式初始化每一个划分区域，然后使用三角形的法向量和其上的任意一点来初始化对应的代理平面。通过上面的算法，每一个划分区域都会慢慢的变大。
 
@@ -227,32 +227,32 @@ VSA的主要思想是：给定划分数k和一个距离衡量函数$E$(①或②
 
 在这个阶段中，区域划分R会被固定，代理平面$P$会被调整以最小化全局形变量E
 
-![](http://upload-images.jianshu.io/upload_images/6808438-10ad93a43e296ed9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-21.png)
 
 如果我们使用①式作为距离衡量函数，设$\mathbf{R}_i$内的三角形上，$d_1$, $d_2$, $d_3$是三角形三个顶点到代理平面$\mathbf{P}_i = （\mathbf{X}_i, \mathbf{N}_i)$的垂直距离，那么此时①式可以写为
 
-![](http://upload-images.jianshu.io/upload_images/6808438-9f5c0f13f6cf42a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-28.png)
 
 为了使得全局型变量$E$最小，则调整后的代理平面中，$\mathbf{X}_i$为
 
-![](http://upload-images.jianshu.io/upload_images/6808438-9fd3cb66486fac91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-29.png)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-f10dfb166680e7cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-30.png)
 
 
 $\mathbf{N}_i$为下面的矩阵的最小特征值所对应的特征向量
 
-![](http://upload-images.jianshu.io/upload_images/6808438-1e752d926455cb04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-31.png)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-b4fcc9f3b87b4746.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-32.png)
 
 如果我们使用的是②式，假设$\mathbf{R}_i$内的三角形为$T_i = (v_1, v_2, v_3)$，其代理平面为$\mathbf{P}_i = （\mathbf{X}_i, \mathbf{N}_i)$的垂直距离，那么此时②式可以写为
 
-![](http://upload-images.jianshu.io/upload_images/6808438-596a41ecd0b273ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-33.png)
 
 那么调整后，$\mathbf{N}_i$为(注意单位化)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-164ba884440d22a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-34.png)
 
 并且②的最小化与$\mathbf{X}_i$的值无关，$\mathbf{X}_i$通常取取该区域$\mathbf{R}_i$的重心坐标。
 
@@ -266,13 +266,13 @@ Greedy Shape Approximation是上述算法的改进形式，相较于前者它具
 
 * 算法能够自然地生成一些列不同逼近程度的网格。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-deeed78f8c3428fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-35.png)
 
 * 输出网格能够避免重影(Fold-Over)和退化的面(Degenerate Face)。
 
 不过由于该算法使用贪心法来最小化下面的全局型变量所以其结果可能会陷入到局部最优解中。
 
-![](http://upload-images.jianshu.io/upload_images/6808438-10ad93a43e296ed9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-21.png)
 
 并且该算法还涉及到了德洛内三角剖分的相关计算。
 
@@ -280,17 +280,17 @@ Greedy Shape Approximation是上述算法的改进形式，相较于前者它具
 
 初始化的时候，$\mathbf{R}$的每一个区域都只包含一个三角形
 
-![](http://upload-images.jianshu.io/upload_images/6808438-d8e4fa30c642ba6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-37.png)
 
 $\mathbf{R}_i$对应的代理平面$\mathbf{P}_i$为
 
-![](http://upload-images.jianshu.io/upload_images/6808438-c009b355c595c954.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-38.png)
 
 其中$\mathbf{x}_i$为三角形$t_i$上的任意一点，$\mathbf{n}_i$为三角形的法向量。
 
 $\mathbf{F}$的元素为
 
-![](http://upload-images.jianshu.io/upload_images/6808438-5ad5052f8838a643.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-39.png)
 
 由于算法要保证生成的网格没有重影(Fold-Over)和退化的面，所以整个算法要保证：从$f_i$到 $\mathbf{p}_i$的映射是 **单射** 。
 
@@ -300,11 +300,11 @@ $\mathbf{F}$的元素为
 
 该算法同样是迭代算法，在满足定义的条件之前(误差或者区域数)。每次我们选取两个区域$\mathbf{P}_i$和$\mathbf{P}_j$，让那和将它们合并为一个新的区域
 
-![](http://upload-images.jianshu.io/upload_images/6808438-bc43031fa1c8434d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-40.png)
 
 新的区域$\mathbf{R'} = (\mathbf{x'} ,\mathbf{n'} )$的 $\mathbf{x'}$ , $\mathbf{n'}$是由原区域的对应值以面积为权重加和得到，其中$a_i$是$\mathbf{R}_i$的面积
 
-![](http://upload-images.jianshu.io/upload_images/6808438-70b0c8406475b6ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-41.png)
 
 新的边$f'$是原来两个面$f_i$和$f_j$相交并去掉公共边之后得到。然后算法检查所有相邻边只有2条的顶点，如果该顶点是内部的顶点则移除它，如果它是边界上的顶点，只有当其到代理平面的距离小于用户定义的阈值的时候才将其移除。
 
@@ -312,15 +312,15 @@ $\mathbf{F}$的元素为
 
 为了加速算法，在计算误差的时候我们并不重新计算$E(\mathbf{R’}, \mathbf{P'})$，而是使用下面的方式进行近似计算
 
-![](http://upload-images.jianshu.io/upload_images/6808438-7fb4acac8a869f03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-42.png)
 
-![](http://upload-images.jianshu.io/upload_images/6808438-583b5fe8c4fcfdae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-43.png)
 
 其中$\mathbf{D}_i$是$\mathbf{P}_i$三角形的某个子集，由于包含了更少的三角形，所以计算效率会更高。
 
 最后我们将这两种距离衡量函数合并，得到
 
-![](http://upload-images.jianshu.io/upload_images/6808438-62181305a32a1cb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/post/Polygon-Mesh-Processing-note7-Simplification/img-44.png)
 
 ---
 
