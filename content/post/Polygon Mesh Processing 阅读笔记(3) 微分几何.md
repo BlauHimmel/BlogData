@@ -36,7 +36,7 @@ $$
 
 同样的曲线是可以通过参数变换使用不同的参数来表示的。曲线的微分几何关注诸如 **弧长** 、**曲率** 之类的，独立于特定参数之外的属性，也就是说无论参数如何变换，这些属性的值都是相等的。
 
-#### 弧长
+### 弧长
 
 对于上述曲线，起始点$a$到曲线上任意点$u$之间的弧长可以表示为：
 
@@ -54,13 +54,13 @@ $$
 
 当切向量的模为1，即曲线的切向量为单位向量场的时候，参数u就是曲线的弧长参数了
 
-#### 曲率
+### 曲率
 
 曲线的 **曲率** (curvature)就是针对曲线上某个点的切线方向角对弧长的转动率，即单位弧长内曲线转过的角度。
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-01fcd18e6153cb0f.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-假设正则曲线的参数方程的参数为其弧长，图像如上图所示，$\alpha$表示是曲线上的切向量（即$p(s)$的导数$p'(s)$），根据定义曲线的曲率为：
+假设正则曲线的参数方程的参数为其弧长，图像如上图所示，$\alpha$表示是曲线上的切向量(即$p(s)$的导数$p'(s)$)，根据定义曲线的曲率为：
 
 $$
 \kappa(s) = \Vert \alpha'(s) \Vert = \lim\limits_{\Delta s \to 0}\|{\frac{\Delta \theta}{\Delta s}\|}
@@ -94,7 +94,7 @@ $$
 
 ## 曲面
 
-#### 曲面的参数化表示
+### 曲面的参数化表示
 
 以地球地图的展开为例，地球表面是一个闭合的曲面，为了印刷地图，一般需要将其表面进行展开。
 
@@ -128,9 +128,9 @@ y(\theta, \phi)\\\\\
 z(\theta, \phi)\\\\\
 \end{pmatrix} =
 \begin{pmatrix}
-R\ cos(\theta) cos(\phi))\\\\\
-R\ sin(\theta) cos(\phi))\\\\\
-R\ sin(\phi))\\\\\
+R\ cos(\theta) cos(\phi)\\\\\
+R\ sin(\theta) cos(\phi)\\\\\
+R\ sin(\phi)\\\\\
 \end{pmatrix}
 $$
 
@@ -140,7 +140,7 @@ $$
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-3253e8319401e63d.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 度量性质(Metric Property)
+### 度量性质(Metric Property)
 
 假设一个三维曲面的参数方程如下
 
@@ -168,11 +168,11 @@ $$
 这两个偏导数表示的是如下两条曲线上的切向量
 
 $$
-\mathbf{C}_u(t)=\mathbf{u_0+t, v_0}
+\mathbf{C}_u(t)=\mathbf{x}(\mathbf{u_0+t, v_0})
 $$
 
 $$
-\mathbf{C}_v(t)=\mathbf{u_0, v_0+t}
+\mathbf{C}_v(t)=\mathbf{x}(\mathbf{u_0, v_0+t})
 $$
 
 很明显这两个方程分别是当曲面方程的某个参数固定后，以另一个参数为参数的方程。
@@ -217,7 +217,7 @@ $$
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-b1c644496c68d47c.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 曲面的第一基本型
+### 曲面的第一基本型
 
 通过上面求解方向导数的过程可以发现，雅可比矩阵代表了一种从参数的定义域空间到曲面坐标空间的变换。通过雅可比矩阵可以知道一些量，诸如角度、距离和面积等，在这两个空间之间的映射关系。
 
@@ -253,7 +253,7 @@ $$
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-f8a8cdd4a7fdc5b7.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 曲面的曲率
+### 曲面的曲率
 
 曲面的曲率的定义是由曲线的曲率的定义扩充而来的，对于曲面上的一点，存在无数个切向量。对于曲面上的一点$\mathbf{p}$，以及一条切向量$\mathbf{t}$，这时可以定义曲率为：切向量$\mathbf{t}$和曲面在这一点的法向量所成平面与曲面相交形成的直线在点$\mathbf{p}$处的曲率。
 
@@ -309,7 +309,7 @@ $$
 
 ![左图为平均曲率，右图为高斯曲率](http://upload-images.jianshu.io/upload_images/6808438-85f8d6876ea423e4.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 内蕴几何学(Intrinsic geometry)
+### 内蕴几何学(Intrinsic geometry)
 
 在微分几何中，那些只依赖于 **第一基本型** 的属性被称为是 **内蕴的(Intrinsic)**。直观上来说它们可以仅仅通过曲面二维特征来导出。例如曲面上曲线的长度，角度等都是 **内蕴的(Intrinsic)**。
 
@@ -317,7 +317,7 @@ $$
 
 **内蕴的(Intrinsic)** 通常被用来取表示参数的独立性。
 
-#### 拉普拉斯算子
+### 拉普拉斯算子
 
 一般称某函数梯度的散度为 **拉普拉斯算子**，对于二元函数$f(u,v)$，其在欧式空间上的二阶差分算子(拉普拉斯算子)可以写为：
 
@@ -331,13 +331,13 @@ $$
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-a99b55cd91c8035c.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-虽然这个式子说明 **平均曲率** （非内蕴的）和 **拉普拉斯-贝尔特拉米算子** 之间存在某种关系，但是 **拉普拉斯-贝尔特拉米算子** 本身仅取决于 **第一基本型**，是内蕴的。
+虽然这个式子说明 **平均曲率** (非内蕴的)和 **拉普拉斯-贝尔特拉米算子** 之间存在某种关系，但是 **拉普拉斯-贝尔特拉米算子** 本身仅取决于 **第一基本型**，是内蕴的。
 
 ## 离散微分算子
 
 由于3D网格并不是连续的，而上面的讨论是建立在曲面是光滑的基础之上的。要将上述算子运用到3D网格上，需要将网格看作一个很粗糙的曲面，然后通过网格数据去计算这个近似曲面的微分属性。
 
-#### 局部平均区域
+### 局部平均区域
 
 一般的想法就是计算网格某个点以及与其相邻点的微分属性的平均值。
 
@@ -345,12 +345,12 @@ $$
 
 常用的由下面三种定义这个面积的方法，其区别主要是在顶点周围的三角形中取点的方式不同：
 
-{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-003bf27aacfd39c8.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="重心（左图），外心（中图），混合点（右图）" >}}
+{{< figure src="http://upload-images.jianshu.io/upload_images/6808438-003bf27aacfd39c8.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="重心(左图)，外心(中图)，混合点(右图)" >}}
 
 
 其中右图中，当三角形为钝角三角形时则取中心点对边的中点，否则取三角形的外心。
 
-#### 法向量
+### 法向量
 
 在3D网格中，要计算某个三角面的法向量是比较容易的，只需要取两条边向量坐叉乘即可：
 
@@ -364,15 +364,15 @@ $$
 
 * $\alpha_T$取常数1，这样计算的时候就忽略了邻边的长度，三角形的面积，角度。对于不规则的网格，计算的结果一般都是违反直觉的。
 
-* $\alpha_T$取三角形的面积，这样取的好处是便于计算（只需要进行叉乘运算就可以了，还不用对向量进行单位化），不过这种方法得到的结果有的时候也会出现违反直觉的情况。
+* $\alpha_T$取三角形的面积，这样取的好处是便于计算(只需要进行叉乘运算就可以了，还不用对向量进行单位化)，不过这种方法得到的结果有的时候也会出现违反直觉的情况。
 
 * $\alpha_T$取邻边的夹角，不过由于计算过程涉及到了三角函数，效率上相对要低一些，不过效果比前两者好。
 
-#### 梯度
+### 梯度
 
 同样是基于加权平均的方法，求解网格中某个三角形上某一点的坐标可以由三个顶点的梯度根据重心坐标的三个权值做加权平均。
 
-对于分段线性函数$f$来说，其在三角形顶点上有对应的值。可以考虑用拉格朗日插值法来表示三角上任意一点的函数值（$\mathbf{u}$是二维参数）：
+对于分段线性函数$f$来说，其在三角形顶点上有对应的值。可以考虑用拉格朗日插值法来表示三角上任意一点的函数值($\mathbf{u}$是二维参数)：
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-c9b09410acda57b3.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -396,7 +396,7 @@ $$
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-5fc277fb88fc440b.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 离散形式的拉普拉斯算子
+### 离散形式的拉普拉斯算子
 
 * Uniform形式的拉普拉斯算子
 
@@ -412,7 +412,7 @@ $$
 
 * 余切形式的拉普拉斯算子
 
-这种形式更加的精准，直接计算顶点$v_i$周围的平均区域（之前提到过，有若干种取法），然后对其梯度的散度进行曲面积分，然后使用 *散度定理（高斯公式）* 进行展开计算，最后可以得到：
+这种形式更加的精准，直接计算顶点$v_i$周围的平均区域(之前提到过，有若干种取法)，然后对其梯度的散度进行曲面积分，然后使用 *散度定理(高斯公式)* 进行展开计算，最后可以得到：
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-7dc2b735a6dc47de.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -422,7 +422,7 @@ $$
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-93bab32df4ea58b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 离散曲率
+### 离散曲率
 
 根据上面的式子，可以得到在离散形式下的 **平均曲率** ：
 
@@ -436,7 +436,7 @@ $$
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-75d86f734e3da122.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 离散形式的曲率张量
+### 离散形式的曲率张量
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-913b9400640120cd.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 

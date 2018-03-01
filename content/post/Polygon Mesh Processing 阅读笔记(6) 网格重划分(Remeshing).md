@@ -21,7 +21,7 @@ tags: ["Mesh", "阅读笔记"]
 
 网格的局部结构(Local Structure)说的是网格元素的种类，形状，方位以及分布情况。
 
-##### 元素的种类(Element Type)
+### 元素的种类(Element Type)
 
 最为常用的两个种类是 **三角形(Triangle)** 和 **四边形(Quadrangle)** 。
 
@@ -29,7 +29,7 @@ tags: ["Mesh", "阅读笔记"]
 
 反过来，如果要把三角形网格转换为四边形网格，可以使用重心划分的方法：将三角形的重心和每一条边的中点连接，这样一个三角形就被划分成了3个四边形。另外还有一种方法：将三角形的重心和每一个顶点连接，然后舍弃掉网格上原来所有三角形的边。
 
-##### 元素的形状(Element Shape)
+### 元素的形状(Element Shape)
 
 网格的元素可以分为 **各向同性(Isotropic)** 或者 **各向异性(Anisotropic)** 两类。
 
@@ -41,11 +41,11 @@ tags: ["Mesh", "阅读笔记"]
 
 **各向异性(Anisotropic)** 的元素在网格曲面上各个方向的形状往往都不同，通常这些元素的都朝向(oriented)主曲率的方向。这种元素往往能够更好的表现几何体的结构特征。它的另一个优势在于，相对于 **各向同性(Isotropic)** ，得到同样质量的网格其使用的元素的个数更少。
 
-##### 元素的密度(Element Density)
+### 元素的密度(Element Density)
 
 在一个平均分布的网格中(Uniform Distribution)，网格元素平均的分布在整个模型上。在一个不均匀或者适应性分布的网格中(Nonuniform Adaptive Distribution)，每个区域分布的元素的数量都不同，例如比较小的元素通常会较多地处于曲率较高的区域。通过调整，这种不均匀或者适应性分布的网格能够用更少的元素更好地近似出原来的网格。
 
-##### 元素的对齐性和方位(Element Alignment and Orientation)
+### 元素的对齐性和方位(Element Alignment and Orientation)
 
 在Remeshing的过程中，一些尖锐突出的地方(Sharp Features)通常会受到影响产生 *走样(Aliasing)* ，这些地方的切线是不连续的，为了避免这个情况需要将网格元素与它们(Sharp Features)对齐(Align)。
 
@@ -83,31 +83,31 @@ tags: ["Mesh", "阅读笔记"]
 
 上面这张图形象的描述了 **沃罗诺伊图** 的生成过程。
 
-下面我们用数学的形式来表达 **沃罗诺伊区域** 。给定任意维空间 **R** d上的一个点的集合{**p1**,...,**pn**}，点 **pi** 的 **沃罗诺伊区域** *V* ( **pi** ) 是：
+下面我们用数学的形式来表达 **沃罗诺伊区域** 。给定任意维空间$R_d$上的一个点的集合${\mathbf{p}_1,...,\mathbf{p}_n}$，点\mathbf{p}_i的 **沃罗诺伊区域** $V (\mathbf{p}_i)$ 是：
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-c23617859c4c55e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)。
 
-**沃罗诺伊图** 可以看作空间 **R** d上的一个划分，因为该空间上任意一个点必定属于某一个 **沃罗诺伊区域** 。
+**沃罗诺伊图** 可以看作空间$R_d$上的一个划分，因为该空间上任意一个点必定属于某一个 **沃罗诺伊区域** 。
 
-与该空间中的任意两个点 **pi** 和 **pj** 等距的点组成的区域被称作 **Bisector** ，所有的 **Bisector** 都是该空间上的仿射子空间(Affine Subspace)。例如，在2维空间上Bisector是一条线，3维空间上Bisector是一个面。
+与该空间中的任意两个点$\mathbf{p}_i$和$\mathbf{p}_j$等距的点组成的区域被称作 **Bisector** ，所有的 **Bisector** 都是该空间上的仿射子空间(Affine Subspace)。例如，在2维空间上Bisector是一条线，3维空间上Bisector是一个面。
 
-从Bisector的定义可以看出，**沃罗诺伊区域** 也可以被定义为由一些 **Bisector** 的半空间(Half-Space)相交所围成的闭合区域，因为凸集(Convex Set)相交仍仍然是凸的，所以 **沃罗诺伊区域** 是一个凸集。不过在靠近整个空间 **R** d边缘的区域，闭合组成 **沃罗诺伊区域** 的Bisector里就会包含 **R** d的外壳(Hull)部分。
+从Bisector的定义可以看出，**沃罗诺伊区域** 也可以被定义为由一些 **Bisector** 的半空间(Half-Space)相交所围成的闭合区域，因为凸集(Convex Set)相交仍仍然是凸的，所以 **沃罗诺伊区域** 是一个凸集。不过在靠近整个空间$R_d$边缘的区域，闭合组成 **沃罗诺伊区域** 的Bisector里就会包含$R_d$的外壳(Hull)部分。
 
 **沃罗诺伊图** 的对偶结构被称为 **德洛内三角剖分(Delaunay Triangulations)**。通过连接沃罗诺伊区域内的顶点可以得到其对应的对偶结构，如下图所示：
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-ad525910f3be35ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-**德洛内三角剖分** 的 **三角形** ( **p** , **q** , **r**)与 **沃罗诺伊区域** V(**p**)，V(**q**)，V(**r**)相交得到的 **顶点** 对偶。
+**德洛内三角剖分** 的 **三角形** $(\mathbf{p}, \mathbf{q}, \mathbf{r})$与 **沃罗诺伊区域** $V(\mathbf{p})$，$V(\mathbf{q})$，$V(\mathbf{r})$相交得到的 **顶点** 对偶。
 
-**德洛内三角剖分** 的 **边** (**p**, **q**)与 **沃罗诺伊区域** V(**p**)，V(**q**)相交得到的 **边** 对偶。
+**德洛内三角剖分** 的 **边** $(\mathbf{p}, \mathbf{q})$与 **沃罗诺伊区域**  $V(\mathbf{p})$，$V(\mathbf{q})$相交得到的 **边** 对偶。
 
-**德洛内三角剖分** 的 **顶点** **p** 与 **沃罗诺伊区域** V(**p**)对偶。
+**德洛内三角剖分** 的 **顶点** $\mathbf{p}$ 与 **沃罗诺伊区域** $V(\mathbf{p})$对偶。
 
 可以发现 **德洛内三角剖分** 和 **沃罗诺伊图** 在许多局部和全局的属性上存在对偶关系，如：
 
-* 对于k维空间上的某个点集P上的 **德洛内三角剖分** ，其上的任何一个k单纯形([k-simplex](https://en.wikipedia.org/wiki/Simplex)：即在k维空间上，由k+1个点组成的多面体，如2维空间上的三角形，3维空间上的四面等)的外界圆(因为是任意维的情况，所以称作超球面更准确一些)的内部都不包含点集上其它的点。
+* 对于k维空间上的某个点集$P$上的 **德洛内三角剖分** ，其上的任何一个k单纯形([k-simplex](https://en.wikipedia.org/wiki/Simplex)：即在$k$维空间上，由$k+1$个点组成的多面体，如2维空间上的三角形，3维空间上的四面等)的外界圆(因为是任意维的情况，所以称作超球面更准确一些)的内部都不包含点集上其它的点。
 
-*  对于2维空间上的某个点集P上的 **德洛内三角剖分** ，这种剖分能够最大化所有三角形中最小的角。
+*  对于2维空间上的某个点集$P$上的 **德洛内三角剖分** ，这种剖分能够最大化所有三角形中最小的角。
 
 另外在进行 **德洛内三角剖分** 的时候还可以对其加以限制，例如在2维空间上可以用闭合的平面曲线来进行限制，在3维空间上用闭合曲面来进行限制。
 
@@ -115,7 +115,7 @@ tags: ["Mesh", "阅读笔记"]
 
 ##  三角形网格的网格重划分(Triangle-Based Remeshing)
 
-#### Greedy Remeshing
+### Greedy Remeshing
 
 这个方法的主要思想是对 **3维德洛内三角剖分** 的 **Refining** 和提取 **Filtering** 。
 
@@ -126,35 +126,35 @@ tags: ["Mesh", "阅读笔记"]
 该算法会涉及下面的概念：
 
 * **Surface Delaunay ball**
-一个Surface Delaunay ball是一个位于输入网格曲面中心的球，这个球包围了一个德洛内三角剖分中的一个特定的面。一个中心位置为 **c** ，半径为r，包围了面 *f* 的Surface Delaunay ball可以记作：
+一个Surface Delaunay ball是一个位于输入网格曲面中心的球，这个球包围了一个德洛内三角剖分中的一个特定的面。一个中心位置为$\mathbf{c}$，半径为$r$，包围了面$f$的Surface Delaunay ball可以记作：
 ![](http://upload-images.jianshu.io/upload_images/6808438-da9333565061f46e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 * **Medial axis**
-给定n维空间上的一个集合O，它的Medial axis M(O)是一系列点的集合，以这些点为中心的超球面与集合O的边界相切的点的个数至少为2。
+给定n维空间上的一个集合$O$，它的Medial axis $M(O)$是一系列点的集合，以这些点为中心的超球面与集合$O$的边界相切的点的个数至少为$2$。
 
 {{< figure src="http://upload-images.jianshu.io/upload_images/6808438-6a518e5d0b8da9a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="椭圆区域为O，中间的直线为Medial axis" >}}
 
 * **Medial ball**
-中心在Medial axis上的球(ball)，其内部被集合O包含并且它的包围球面与O的边界相交，称这样的球(ball)为Medial ball。
+中心在Medial axis上的球(ball)，其内部被集合$O$包含并且它的包围球面与$O$的边界相交，称这样的球(ball)为Medial ball。
 
 {{< figure src="http://upload-images.jianshu.io/upload_images/6808438-6a8c48ca8b8a3daa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="最外侧的实线包含的集合为O，集合内的实线为Medial axis，圆圈所围成的区域为Medial ball" >}}
 
 * **Reach(Local feature size)**
-集合O内的点x到集合O上的Medial axis的距离称为Reach或者Local feature size。
+集合$O$内的点$\mathbf{x}$到集合O上的Medial axis的距离称为Reach或者Local feature size。
 
-有了上面的定义就可以准确的描述Refine的过程，即调整带限制的德洛内三角剖分，使得所有的 *Surface Delaunay ball* 的半径都小于局部的 *Reach* ，为了保证算法能够正确终止还需要确保 *Reach* 大于0。
+有了上面的定义就可以准确的描述Refine的过程，即调整带限制的德洛内三角剖分，使得所有的 *Surface Delaunay ball* 的半径都小于局部的 *Reach* ，为了保证算法能够正确终止还需要确保 *Reach* 大于$0$。
 
-算法需要一个点集 *P* ，*P* 的德洛内三角剖分Del( *P* )，带限制条件的德洛内三角剖分Del *S* ( *P* )，以及Del *S* ( *P* )中“不好(bad)”的面的列表L。
+算法需要一个点集$P$，$P$的德洛内三角剖分$Del(P)$，带限制条件的德洛内三角剖分$Del_S(P)$，以及$Del_S(P)$中“不好(bad)”的面的列表$L$。
 
-**“不好(bad)”的面** 的定义为：假定有一个Surface Delaunay ball—— **B** f = B( **c** f，*r* f)，满足 *r* f > ψ( **c** f)，其中ψ是定义在S上的函数，ψ满足下列条件：存在S上的一个点 **x** ，使得
+**“不好(bad)”的面** 的定义为：假定有一个Surface Delaunay ball—— $B_f = B(\mathbf{c}_f，r_f)$，满足$r_f > \Psi(\mathbf{c}_f)$，其中$\Psi$是定义在$S$上的函数，$\Psi$满足下列条件：存在$S$上的一个点$\mathbf{x}$，使得
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-e309f1959f6b76d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-初始化的时候点集 *P* 选取S中每个联通区域上足够近的三个点，然后执行下面的算法
+初始化的时候点集$P$选取$S$中每个联通区域上足够近的三个点，然后执行下面的算法
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-4c7cd1c2f33ba44f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-当ψ满足，其中ε = 0.2，ρ = reach，上面的算法会在经过有限次的迭代之后终止，并且算法输出的结果——带限制的3维德洛内三角剖分与输入的网格曲面相互同胚。
+当$\Psi$满足，其中$\epsilon = 0.2$，$\rho = reach$，上面的算法会在经过有限次的迭代之后终止，并且算法输出的结果——带限制的3维德洛内三角剖分与输入的网格曲面相互同胚。
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-5368bc7557bb71da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -166,7 +166,7 @@ Greedy Remeshing的优点在于其结果保证不会出现自相交，因为三�
 
 那么如果想要使用尽量少的顶点得到质量尽可能高的网格，该怎么做呢？下面的Variational Remeshing方法能够部分解决这个问题。
 
-#### Variational Remeshing
+### Variational Remeshing
 
 当我们寻求高质量的网格的时候，就需要对网格进行相应的优化工作。
 
@@ -177,13 +177,13 @@ Variational Remeshing地主要思想是：将一系列的点尽可能平均地�
 
 以2D的情况为例，如果要平均地将一系列点放置到一个平面上，其中一个方法就是通过构建一个 **Centroidal Voronoi Tessellation(CVT)** 来实现。
 
-给定一个边界域Ω，如果存在一个被Ω限制的 **沃罗诺伊划分(Voronoi Tessellation)** ，其上的任意一个沃罗诺伊区域中的顶点刚好是这个区域的重心，那么称这个这个划分为 **Centroidal Voronoi Tessellation(CVT)**。
+给定一个边界域$\Omega$，如果存在一个被$\Omega$限制的 **沃罗诺伊划分(Voronoi Tessellation)** ，其上的任意一个沃罗诺伊区域中的顶点刚好是这个区域的重心，那么称这个这个划分为 **Centroidal Voronoi Tessellation(CVT)**。
 
-求一个沃罗诺伊区域 *V* i的重心 **c** i的方法如下：
+求一个沃罗诺伊区域$V_i$的重心$\mathbf{c}_i$的方法如下：
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-ab6161baa0041917.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-ρ( **x** )是的密度函数，通常取一个常数(即区域内的质量分布是均匀的)。
+$\rho(\mathbf{x})$是的密度函数，通常取一个常数(即区域内的质量分布是均匀的)。
 
 Variational Algorithm即变分算法通常需要首先定义一个能量函数，然后通过不断地迭代最小化这个能量函数。
 
@@ -191,13 +191,13 @@ Variational Algorithm即变分算法通常需要首先定义一个能量函数�
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-8ce2ec1cb1322266.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-通过观察可以知道，当 **p** i是对应沃罗诺伊区域 *V* i上的重心的时候，上面的能量函数取最小值。
+通过观察可以知道，当$\mathbf{p}_i$是对应沃罗诺伊区域$V_i$上的重心的时候，上面的能量函数取最小值。
 
 我们可以使用[Lloyd's Algorithm](https://en.wikipedia.org/wiki/Lloyd%27s_algorithm)(也叫Lloyd’s
-Relaxation Method)，通过不断迭代建立一个 **CVT** 。给定一个密度函数 *ρ* 和一个点集 **p** i，算法由下面三个步骤组成：
+Relaxation Method)，通过不断迭代建立一个 **CVT** 。给定一个密度函数$\rho$和一个点集 $\mathbf{p}_i$，算法由下面三个步骤组成：
 
-1. 根据点集 **p** i建立沃罗诺伊划分(Voronoi Tessellation)
-2. 计算每一个沃罗诺伊区域的重心 **c** i，然后将 **p** i移动到 **c** i的位置
+1. 根据点集$\mathbf{p}_i$建立沃罗诺伊划分(Voronoi Tessellation)
+2. 计算每一个沃罗诺伊区域的重心$\mathbf{c}_i$，然后将$\mathbf{p}_i$移动到$\mathbf{c}_i$的位置
 3. 重复执行(1)(2)直到满足收敛条件
 
 {{< figure src="http://upload-images.jianshu.io/upload_images/6808438-f2bf362e84285a45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="从左到右：原始的沃罗诺伊划分；经过一次迭代后的划分；经过三次迭代的划分；Centroidal Voronoi Tessellation(CVT)" >}}
@@ -206,7 +206,7 @@ Relaxation Method)，通过不断迭代建立一个 **CVT** 。给定一个密�
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-1177ce768876d852.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### Incremental Remeshing
+### Incremental Remeshing
 
 Incremental Remeshing相较于之前的Variational Remeshing来说实现起来更加简单——它不需要进行参数化并且不需要进行划分(Tessellation)。
 
@@ -214,7 +214,7 @@ Incremental Remeshing相较于之前的Variational Remeshing来说实现起来�
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-1a8a3e99a6515f2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-注意到我们通过输入的长度得到一个区间[low, high]，如果边长在区间左侧则认为这条边太短需要进行Collapse操作；如果边长在区间的右侧则认为这条边太长，需要进行Split操作。
+注意到我们通过输入的长度得到一个区间$[low, high]$，如果边长在区间左侧则认为这条边太短需要进行Collapse操作；如果边长在区间的右侧则认为这条边太长，需要进行Split操作。
 
 {{< figure src="http://upload-images.jianshu.io/upload_images/6808438-487d6acb63e9d136.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="网格的基本操作" >}}
 
@@ -232,11 +232,11 @@ Incremental Remeshing相较于之前的Variational Remeshing来说实现起来�
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-a7b166e6d6515a4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-**tangential_relaxation()** 函数对当前的网格进行反复的平滑过滤。假定 **p** 是网格上的某一个点， **n** 是该点的法线量，然后使用下面的方法计算出点 **q** ：
+**tangential_relaxation()** 函数对当前的网格进行反复的平滑过滤。假定$\mathbf{p}$是网格上的某一个点，$\mathbf{n}$是该点的法线量，然后使用下面的方法计算出点$\mathbf{q}$ ：
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-d95bbfc911b22d0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-然后我们将 **q** 向 **p** 点的方向投影，得到 **p** 的新位置：
+然后我们将$\mathbf{q}$向$\mathbf{p}$点的方向投影，得到$\mathbf{p}$的新位置：
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-9d02aa7d62cb59c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 

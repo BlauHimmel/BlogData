@@ -16,7 +16,7 @@ tags: ["Mesh", "阅读笔记"]
 
 一般我们将模型修复算法粗略的分为下面两类：
 
-##### Surface-Oriented Algorithm
+#### Surface-Oriented Algorithm
 
 这类算法通常直接对输入的数据进行操作并通过修改曲面直接将“畸形”的地方(Artifacts)“矫正”。
 
@@ -30,7 +30,7 @@ tags: ["Mesh", "阅读笔记"]
 
 为了保证有效的输出，该算法对输入的模型会有一定的要求，故在执行算法之前和之后还需要我们进行一些手动处理。此外，由于存在精度上的问题，诸如 **相交(Intersection)** 和 **大范围重叠(Large Overlap)** 之类的地方不能被很好地修复，其它的例如在两个非常接近的曲面间产生的 **沟(Gap)** 往往不能够被检测到。
 
-##### Volumetric Algorithm
+#### Volumetric Algorithm
 
 该算法将输入的模型用测定体积的方式去表示它(简单地说就是该模型占据了空间的哪些区域)。然后根据前面的表示形式，从中提取输出的模型。
 
@@ -44,33 +44,33 @@ tags: ["Mesh", "阅读笔记"]
 
 从整体上看，算法相当于是对输入的模型进行了一次重采样，因而会造成诸如走样(Alias)、丢失模型特征的问题，并且模型上基于原有网格连接性的相关属性信息也会丢失。因为输出模型的三角形的数目会比输入模型的要多，所以还需要对输出的模型进行简化。并且算法是比较耗费内存的，所以往往很难再高分辨率的模型上运行。
 
-#### 输入类型
+### 输入类型
 
 下面介绍一些常用的模型输入类型以及该类型通常会产生的“畸形”的类型。
 
-###### Registered Range Scan
+#### Registered Range Scan
 
-Registered Range Scan是一系列相互重叠的面片，这些面片可以用来表示输入模型。在将这些面片融合为一个单一的三角形网格的时候就由可能出现问题。由于输入数据中存在较大的重叠，所以曲面上的某一个点 **x** 会被若干个面片表示。并且每一个面片都有自己的连接性属性，这些属性和其它的面片并不兼容。
+Registered Range Scan是一系列相互重叠的面片，这些面片可以用来表示输入模型。在将这些面片融合为一个单一的三角形网格的时候就由可能出现问题。由于输入数据中存在较大的重叠，所以曲面上的某一个点$\mathbf{x}$会被若干个面片表示。并且每一个面片都有自己的连接性属性，这些属性和其它的面片并不兼容。
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-75d4f0612b311b18.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-###### Fused Range Scan
+#### Fused Range Scan
 
 Fused Range Scan是带边界(如Gap、Hole和Island)的流形(Manifold)网格。这些边界是由于扫描仪的实现上出现了遮挡物或者物体表面上的一些特殊属性，如透明或者高光造成的。我们的目标是找到并填补上这些洞(Hole)。更加高级的算法不仅仅是填上这些洞(Hole)，而且还根据该区域周围的几何特征为这个区域合成新的几何特征。
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-ebd8e3085672abee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-###### Triangle Soup
+#### Triangle Soup
 
 Triangle Soup是三角形的集合，并且几乎没有这些三角形的连接性信息。Triangle Soup通常出现在CAD建模中，由用户手动建立(通过一些已经定义好的元素来创建出目标模型的边界)。模型虽然只是由三角形构成，却可能出现各种类型的“畸形”。其中“相交(Intersection)”是最为常见的，对其的检测过程非常耗时。所以该类型通常多用于可视化而不是几何处理。
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-46b09d4a794da02a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-###### Triangulated NURBS Patch
+#### Triangulated NURBS Patch
 
 Triangulated NURBS Patch是一系列三角形网格的集合，最终的模型由这些网格拼接得到。所以在将不同的网格拼合的时候，拼合处就可能会出现“沟(Gap)”和小的“重叠(Overlap)”。并且在结合处还有可能出现法线方向不一致的情况。通常我们使用**Surface-Oriented Algorithm**来修复它。首先要确保输出的每一块网格的朝向一直，然后在将相邻两块网格咬合(Snap)在一起。
 
-###### Contoured Mesh
+#### Contoured Mesh
 
 Contoured Mesh是通过体积测定数据集(Volumetric Dataset)导出的网格模型。理论上导出的模型是一个流形(Manifold)，并且是密闭的(Watertight)。然而也会出现像下图那样的“畸形”(书中称之为 **Small Spurious Handle** )。
 
@@ -82,14 +82,14 @@ Contoured Mesh是通过体积测定数据集(Volumetric Dataset)导出的网格�
 
 对于 **Handle** 类的“畸形”，我们往往是在原数据集进行处理以修复它，然后在提取出结果模型。然后在对模型进行处理以修复其它的“畸形”。
 
-###### Badly Meshed Manifold
+#### Badly Meshed Manifold
 
 Badly Meshed Manifold是指包含了退化元素(Degenerate Element)的网格，如：
 
-* 面积为0的三角形
-* 有一个内角为π(称为 **Cap** )
-* 有一条边的长度为0(称为 **Needle** )
-* 相邻三角形的法向量的夹角接近π(称为 **Triangle Flip** )
+* 面积为$0$的三角形
+* 有一个内角为$\pi$(称为 **Cap** )
+* 有一条边的长度为$0$(称为 **Needle** )
+* 相邻三角形的法向量的夹角接近$\pi$(称为 **Triangle Flip** )
 
 改善这类网格的方法一般是 **网格重划分(Remeshing)**。
 
@@ -99,22 +99,22 @@ Badly Meshed Manifold是指包含了退化元素(Degenerate Element)的网格，
 
 Surface-Oriented Algorithm直接对输入的网格进行修改，以对其进行显示修复。
 
-####  Surface-Based Hole Filling
+###  Surface-Based Hole Filling
 
-这里介绍的补洞算法是其它类似算法的基础。我们的目标是得到一个三角形网格，网格的边界是一个给定的多边形 **p** 0,..., **p** n-1，该多边形能够正好放入待修复的“洞(Hole)”中。随后我们还需根据一些与网格属性(如面积，三角形法线的变化程度，曲率分布等)相关的质量函数去优化这块网格。
+这里介绍的补洞算法是其它类似算法的基础。我们的目标是得到一个三角形网格，网格的边界是一个给定的多边形$\mathbf{p}_0$,...,$\mathbf{p}\_{n-1}$，该多边形能够正好放入待修复的“洞(Hole)”中。随后我们还需根据一些与网格属性(如面积，三角形法线的变化程度，曲率分布等)相关的质量函数去优化这块网格。
 
-假设φ(*i*, *j*, *k*)是定义在三角形( **p** i, **p** j, **p** k)上质量函数， *ω* (i,j)是多边形 **p** 0,..., **p** n-1的子多边形 **p** i,..., **p** j经过三角剖分后得到网格的最优质量， *ω* (i,j)可以通过下面的迭代式递归的计算出来
+假设$\psi(i, j, k)$是定义在三角形$(\mathbf{p}_i, \mathbf{p}_j, \mathbf{p}_k)$上质量函数，$\omega (i,j)$是多边形$\mathbf{p}_0$,...,$\mathbf{p}\_{n-1}$的子多边形 $\mathbf{p}_i$,...,$\mathbf{p}\_j$经过三角剖分后得到网格的最优质量，$\omega (i,j)$可以通过下面的迭代式递归的计算出来
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-75c0b1cfdddeecb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-其中整体的最优质量 *ω* (0,n-1)能够通过动态规划算法计算得到。
+其中整体的最优质量$\omega (0, n-1)$能够通过动态规划算法计算得到。
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-af8435890e15fcd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-函数φ( *i*, *j*, *k* )应该考虑下面两个因素：
+函数$\psi(i, j, k)$应该考虑下面两个因素：
 
-* △ijk和其周围三角形组成的二面角（等价于法向量的变化程度）
-* △ijk的面积
+* $\Delta_{ijk}$和其周围三角形组成的二面角(等价于法向量的变化程度)
+* $\Delta_{ijk}$的面积
 
 {{< figure src="http://upload-images.jianshu.io/upload_images/6808438-72b3d93ced98ae93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="α是最大的二面角，A是△ijk的面积" >}}
 
@@ -128,25 +128,25 @@ Surface-Oriented Algorithm直接对输入的网格进行修改，以对其进行
 
 在填补完成后，我们还需要对填补上去的网格进行一些调整，使得其顶点分布的密度以及边的平均长度于其周围的网格相匹配。
 
-算法构建三角剖分的时间复杂度为O(n³)，由于“洞(Hole)”一般不大，所以这是可以接受的。然而算法并不能“矫正”“自我相交(Self Intersection)”的问题。
+算法构建三角剖分的时间复杂度为$O(n^3)$，由于“洞(Hole)”一般不大，所以这是可以接受的。然而算法并不能“矫正”“自我相交(Self Intersection)”的问题。
 
-#### Gap Closing
+### Gap Closing
 
 对于“沟(Gap)”，我们可以将其看成一个特殊的“洞(Hole)”，使用上面介绍算法来进行修复。
 
-另外可以做从点到边的收缩(Vertex-Edge Contraction)操作。假定我们将顶点 *v* 收缩指边界 *e* 上，设 *c* 是 *e* 上离 *v* 最近的点，如果 *c* 是 *e* 内部的顶点，则将 *c* 插入到 *e* 上，并将相邻的那个三角形一分为二。最后再将 *v* 和 *c* 合并即可。可以使用 *v* 到 *c* 的距离来作为收缩操作的误差。算法还维护着一个优先队列，优先队列存储的是一对顶点和边，优先级使用的是前面提到的误差。然后按优先级从小到大进行相应的收缩操作。
+另外可以做从点到边的收缩(Vertex-Edge Contraction)操作。假定我们将顶点$v$收缩指边界$e$上，设$c$是$e$上离$v$最近的点，如果$c$是$e$内部的顶点，则将$c$插入到$e$上，并将相邻的那个三角形一分为二。最后再将$v$和$c$合并即可。可以使用$v$到$c$的距离来作为收缩操作的误差。算法还维护着一个优先队列，优先队列存储的是一对顶点和边，优先级使用的是前面提到的误差。然后按优先级从小到大进行相应的收缩操作。
 
 上述算法本身是完备的，且易于实现。如果输入的模型和设定的阈值比较理想，一般能够得到比较理想的结果。不过往往实际情况并非这么理想，由于算法本身是启发式的，所以输出的模型上可能还是会存在各种“畸形”的地方(Artifacts)。所以算法往往被设定为迭代循环的形式，让用户来引导，使算法向着期望的地方进行迭代。
 
-#### Topology Simplification
+### Topology Simplification
 
 拓扑简化的目的就是为了移除网格上的 **Handle** ，算法的基本思想如下图所示：首先将 **Handle** 沿着绿线切开，切开后模型上会出现两个“洞(Hole)”，然后使用之前提到的算法将这两个“洞(Hole)”给补上。
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-3023d7cd9577fdc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-给定一个初始三角形 *s* ，算法通过对原网格执行Dijkstra算法计算得到 *s* 周围的Geodesic Region **R** ε( *s* )。Dijkstra算法在计算得到最短路径的同时，还能得到每一个三角形到初始三角形 *s* 的最短路径上的上一个三角形(Parent Triangle)，记作 *p* ( *t* )，*p* ( *t* )的上一个三角形记作 *p* ²( *t* )...依此类推，路径上的最后一个点为 *s* 。
+给定一个初始三角形$s$，算法通过对原网格执行Dijkstra算法计算得到$s$周围的Geodesic Region $\mathbf{R}_{\epsilon}(s)$。Dijkstra算法在计算得到最短路径的同时，还能得到每一个三角形到初始三角形 *s* 的最短路径上的上一个三角形(Parent Triangle)，记作$p(t)$，$p(t)$的上一个三角形记作$p^2(t)$...依此类推，路径上的最后一个点为$s$ 。
 
-**R** ε( *s* )包含一个或多个环状边界，当有一个环状边界在某一条边上触碰到自己的时候，就将它分裂为两个新环。如果是两个不同的环在 *e* 12处相互触碰的时候就表示我们检测到了 **Handle** 。假设 *t* 1和 *t* 2是与 *e* 12相邻的两个三角形，假设 *t* 1和 *t* 2存在一个共同的祖先
+$\mathbf{R}\_{\epsilon}(s)$ 包含一个或多个环状边界，当有一个环状边界在某一条边上触碰到自己的时候，就将它分裂为两个新环。如果是两个不同的环在$e_{12}$处相互触碰的时候就表示我们检测到了 **Handle** 。假设$t_1, t_2$是与$e\_{12}$相邻的两个三角形，假设$t_1$和$t_2$存在一个共同的祖先
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-114e4ec1e9eafc6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -156,25 +156,25 @@ Surface-Oriented Algorithm直接对输入的网格进行修改，以对其进行
 
 然后我们沿着该路径将模型切开，并补上新产生的两个“洞(Hole)”。
 
-为了检测原网格中的所有 **Handle** ，我们必须对所有的三角形 *s* 执行上面的算法，所以算法的效率不高。并且算法不能检测到长的(long)、薄的(thin) **Handle** ，并且不能保证在 **Handle** 被移除后不存在几何自相交的情况。
+为了检测原网格中的所有 **Handle** ，我们必须对所有的三角形$s$执行上面的算法，所以算法的效率不高。并且算法不能检测到长的(long)、薄的(thin) **Handle** ，并且不能保证在 **Handle** 被移除后不存在几何自相交的情况。
 
 ##  Volumetric Repair Algorithms
 
-####  Volumetric Repair on Regular Grids
+###  Volumetric Repair on Regular Grids
 
 这种方法能够修复包含有 **Gap** 、 **Overlap** 以及 **Intersections** 的模型，对于 **Hole** 和 **Handle** ，该方法使用形态学操作(Morphological Operators)来对其进行处理。
 
-算法分为两步，第一步是进行体素化。首先生成 **投影方向集合** { **d** i}(如通过细分八面体或者二十面体)。接下来将模型沿着正交平面网格(Orthogonal Planar Grid)的方向进行投影。对于网格上的每一个点 **x** ，算法会记录射线 **x** +λ **d** i与输入模型的第一个和最后一个交点。位于两者之间体像素(voxel)被分类是处于内部点，其它的体像素(voxel)被分类为外部。每一个体像素会被不同的射线进行分类，最终的分类结果按照少数服从多数的原则选取。
+算法分为两步，第一步是进行体素化。首先生成 **投影方向集合** $\\{\mathbf{d}_i\\}$(如通过细分八面体或者二十面体)。接下来将模型沿着正交平面网格(Orthogonal Planar Grid)的方向进行投影。对于网格上的每一个点$\mathbf{x}$ ，算法会记录射线$\mathbf{x} + \lambda \mathbf{d}_i$与输入模型的第一个和最后一个交点。位于两者之间体像素(voxel)被分类是处于内部点，其它的体像素(voxel)被分类为外部。每一个体像素会被不同的射线进行分类，最终的分类结果按照少数服从多数的原则选取。
 
 第二个步骤是可选的，通过形态学操作(Morphological Operators)将 **Handle** 和 **Hole** 进行修复。这个过程会用到 **膨胀(Dilation)** 和 **腐蚀(Erosion)** 操作。对于膨胀操作，考虑被分类为内部的顶点组成的集合，将所有与该集合距离小于特定值的外部体像素的分类设置为内部。而腐蚀操作则与膨胀操作正好相反。
 
 该算法是启发性的，通常不是非常的可靠，并且不是特征敏感(Feature sensitive)的，即某些特征可能在修复后丢失。
 
-####  Volumetric Repair on Adaptive Grids
+###  Volumetric Repair on Adaptive Grids
 
-可以使用八叉树代替规则网格以改进上述算法。在改进的算法中会使用下面两个限制变量：容忍度ε和最大修复直径 ρ(描述需要修复多宽的Gap)。
+可以使用八叉树代替规则网格以改进上述算法。在改进的算法中会使用下面两个限制变量：容忍度ε和最大修复直径$\rho$(描述需要修复多宽的Gap)。
 
-首先使用八叉树对输入的模型进行划分，ε在这里表示节点的最小直径。接下来对八叉树子节点进行分类(处于内部还是外部)。然后对处于模型边界上的节点进行 **膨胀(Dilation)** 操作，膨胀的距离为 n = ρ / ε，这样直径小于ρ的Gap将会被修复。下一步，从外部向内部进行 **膨胀(Dilation)** 操作，以抵消前一步带来的模型体积的增大。
+首先使用八叉树对输入的模型进行划分，$\epsilon$在这里表示节点的最小直径。接下来对八叉树子节点进行分类(处于内部还是外部)。然后对处于模型边界上的节点进行 **膨胀(Dilation)** 操作，膨胀的距离为$ n = \frac{\rho}{\epsilon}$，这样直径小于$\rho$的Gap将会被修复。下一步，从外部向内部进行 **膨胀(Dilation)** 操作，以抵消前一步带来的模型体积的增大。
 
 {{< figure src="http://upload-images.jianshu.io/upload_images/6808438-f2164d552f3003e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="紫色方格代表边界上的节点，绿色表示膨胀边界过程中影响到的节点，橙色表示从外部向内部膨胀过程中影响到的节点" >}}
 
@@ -182,17 +182,17 @@ Surface-Oriented Algorithm直接对输入的网格进行修改，以对其进行
 
 改进算法能够保证输出是一个流形(Manifold)，并且特征能够得到保留，但是重建的分辨率是有限的。
 
-####  Volumetric Repair with BSP Trees
+###  Volumetric Repair with BSP Trees
 
-该算法使用BSP树，每一个输入多边形(三角形)所在的平面作为其划分平面，树的子节点对应了一个凸多边形Ci。对于每一个凸多边形Ci，定义并计算出一个从-1到1的 **硬度系数(Solidity Coefficient)** *s* i。-1表示区域为空(不属于网格内部)，1表示则表示其属于区域内部。
+该算法使用BSP树，每一个输入多边形(三角形)所在的平面作为其划分平面，树的子节点对应了一个凸多边形$C_i$。对于每一个凸多边形$C_i$，定义并计算出一个从-1到1的 **硬度系数(Solidity Coefficient)** $s_i$ 。-1表示区域为空(不属于网格内部)，1表示则表示其属于区域内部。
 
 所有无限大的区域都可以被看作是处于物体的外部，因此其 **硬度系数(Solidity Coefficient)** 的值为-1。
 
-设Ci为有限区域，*N* (i)表示于其相邻的面的集合。那么对于 *j* ∈*N*(i)，交集Pij = Ci ∩ Cj表示两区域相交部分多边形所在的平面，*t* ij表示区域边界平面上不被输入多边形(三角形)包含的部分的面积(称之为透明的)，*o* ij表示区域边界平面上被输入多边形(三角形)包含的部分的面积(称之为不透明的)，*a* ij表示平面的总面积。那么 *s* i与和其相邻的 *s* j的关系可以写成
+设$C_i$为有限区域，$N(i)$表示于其相邻的面的集合。那么对于$j \in N(i)$，交集$P\_{ij} = C_i \cap C_j$表示两区域相交部分多边形所在的平面，$t\_{ij}$表示区域边界平面上不被输入多边形(三角形)包含的部分的面积(称之为透明的)，$o\_{ij}$表示区域边界平面上被输入多边形(三角形)包含的部分的面积(称之为不透明的)，$a\_{ij}$表示平面的总面积。那么$s_i$与和其相邻的$s_j$的关系可以写成
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-6ef2a064a62baedf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-其中 *A* i表示区域Ci边界的面积之和
+其中$A_i$表示区域$C_i$边界的面积之和
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-c39538006ad7ae86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -202,21 +202,21 @@ Surface-Oriented Algorithm直接对输入的网格进行修改，以对其进行
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-25ae8262bf1d9beb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-最终通过枚举所有的区域Ci，如果其中一方是处于内部的而另一方是处于外部的，则将其边界Pij加入到重建的过程中。
+最终通过枚举所有的区域$C_i$，如果其中一方是处于内部的而另一方是处于外部的，则将其边界$P\_{ij}$加入到重建的过程中。
 
 该算法不需要用户指定一些额外的参数，并且可以得到严丝合缝的模型(Watertight Model)。得到的结果中可能包含有 **Complex Edge** 和 **Singular Vertex** (参考开篇的图片)，这些可以使用前面提到的方法进行修复。不过，很难找到即具有鲁棒性又具有高效性的的BSP结构。
 
 {{< figure src="http://upload-images.jianshu.io/upload_images/6808438-be49c7daf4ac99eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="BSP树(左)，硬度系数(中)，重建(右)" >}}
 
-####  Volumetric Repair on the Dual Grid
+###  Volumetric Repair on the Dual Grid
 
-该算法首先使用坐标系网格所有面的一个子集 *F* 来近似输入模型，为了节约内存，可以使用八叉树来辅助这个过程。同时将采样点(和法向量)附在每一个面上，以方便后面进行一些更精确的操作。
+该算法首先使用坐标系网格所有面的一个子集$F$来近似输入模型，为了节约内存，可以使用八叉树来辅助这个过程。同时将采样点(和法向量)附在每一个面上，以方便后面进行一些更精确的操作。
 
-对于子集 *F* ，其边界∂ *F* 可以定义为指向奇数个面的坐标系网格边的集合(如下图中红色圆点)。
+对于子集$F$，其边界$\partial F$可以定义为指向奇数个面的坐标系网格边的集合(如下图中红色圆点)。
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-75f0c5196372dd85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-对于每一个边界上的回路Bi，接下来我们寻找另一个集合 *G* ，集合 *G* 与Bi相同，且它们的对称差集的边界为空集。然后将 *F* 进行替换，直到 *F* 的边界为空集。
+对于每一个边界上的回路$B_i$，接下来我们寻找另一个集合$G$，集合$G$与$B_i$相同，且它们的对称差集的边界为空集。然后将$F$进行替换，直到$F$的边界为空集。
 
 ![](http://upload-images.jianshu.io/upload_images/6808438-20dba0b02bc2f36b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
