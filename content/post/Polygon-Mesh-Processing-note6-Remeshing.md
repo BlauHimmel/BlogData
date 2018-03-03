@@ -85,7 +85,7 @@ tags: ["Polygon Mesh Processing", "阅读笔记"]
 
 下面我们用数学的形式来表达 **沃罗诺伊区域** 。给定任意维空间$R_d$上的一个点的集合${\mathbf{p}_1,...,\mathbf{p}_n}$，点$\mathbf{p}_i$的 **沃罗诺伊区域** $V (\mathbf{p}_i)$ 是：
 
-![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-2.png)。
+![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-2.png)
 
 **沃罗诺伊图** 可以看作空间$R_d$上的一个划分，因为该空间上任意一个点必定属于某一个 **沃罗诺伊区域** 。
 
