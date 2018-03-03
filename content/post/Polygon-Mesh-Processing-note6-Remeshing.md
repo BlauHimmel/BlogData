@@ -83,7 +83,7 @@ tags: ["Polygon Mesh Processing", "阅读笔记"]
 
 上面这张图形象的描述了 **沃罗诺伊图** 的生成过程。
 
-下面我们用数学的形式来表达 **沃罗诺伊区域** 。给定任意维空间$R_d$上的一个点的集合${\mathbf{p}_1,...,\mathbf{p}_n}$，点\mathbf{p}_i的 **沃罗诺伊区域** $V (\mathbf{p}_i)$ 是：
+下面我们用数学的形式来表达 **沃罗诺伊区域** 。给定任意维空间$R_d$上的一个点的集合${\mathbf{p}_1,...,\mathbf{p}_n}$，点$\mathbf{p}_i$的 **沃罗诺伊区域** $V (\mathbf{p}_i)$ 是：
 
 ![](/img/post/Polygon-Mesh-Processing-note6-Remeshing/img-2.png)。
 
