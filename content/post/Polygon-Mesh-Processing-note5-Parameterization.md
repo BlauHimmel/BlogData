@@ -1,6 +1,6 @@
 ---
 title: "Polygon Mesh Processing 阅读笔记(5) 参数化(Parameterization)"
-date: 2018-02-28
+date: 2018-02-28T18:49:17+08:00
 draft: false
 tags: ["Polygon Mesh Processing", "阅读笔记"]
 ---

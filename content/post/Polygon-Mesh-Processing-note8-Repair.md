@@ -1,6 +1,6 @@
 ---
 title: "Polygon Mesh Processing 阅读笔记(8) 模型修复(Repair)"
-date: 2018-02-28
+date: 2018-02-28T19:21:17+08:00
 draft: false
 tags: ["Polygon Mesh Processing", "阅读笔记"]
 ---

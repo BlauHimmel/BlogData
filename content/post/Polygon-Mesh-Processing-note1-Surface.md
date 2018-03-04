@@ -1,6 +1,6 @@
 ---
 title: "Polygon Mesh Processing 阅读笔记(1) 曲面的表示"
-date: 2018-02-28
+date: 2018-02-28T18:11:15+08:00
 draft: false
 tags: ["Polygon Mesh Processing", "阅读笔记"]
 ---

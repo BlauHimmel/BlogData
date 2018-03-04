@@ -1,6 +1,6 @@
 ---
 title: "Polygon Mesh Processing 阅读笔记(2) 网格数据结构"
-date: 2018-02-28
+date: 2018-02-28T18:19:17+08:00
 draft: false
 tags: ["Polygon Mesh Processing", "阅读笔记"]
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Polygon Mesh Processing 阅读笔记(4) 曲面的平滑(Smoothing)"
-date: 2018-02-28
+date: 2018-02-28T18:39:17+08:00
 draft: false
 tags: ["Polygon Mesh Processing", "阅读笔记"]
 ---

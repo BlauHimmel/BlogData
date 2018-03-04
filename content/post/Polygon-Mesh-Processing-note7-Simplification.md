@@ -1,6 +1,6 @@
 ---
 title: "Polygon Mesh Processing 阅读笔记(7) 网格的简化与逼近(Simplification and Approximation)"
-date: 2018-02-28
+date: 2018-02-28T19:11:17+08:00
 draft: false
 tags: ["Polygon Mesh Processing", "阅读笔记"]
 ---

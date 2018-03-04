@@ -1,6 +1,6 @@
 ---
 title: "Polygon Mesh Processing 阅读笔记(3) 微分几何"
-date: 2018-02-28
+date: 2018-02-28T18:29:17+08:00
 draft: false
 tags: ["Polygon Mesh Processing", "阅读笔记"]
 ---
