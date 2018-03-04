@@ -1,7 +1,7 @@
 ---
 title: "Guide to Computational Geometry Processing Foundations 阅读笔记(1) 多边形网格"
 date: 2018-03-03T13:14:20+08:00
-draft: true
+draft: false
 tags: ["Guide to Computational Geometry Processing Foundations", "阅读笔记"]
 ---
 
@@ -120,4 +120,37 @@ Face Split操作在三角形内插入一个顶点, 并且在该顶点和三角�
 
 注意到当我们想要从一个边前进到其下一个边的时候, 需要考虑是按照顺时针的方向还是按照逆时针的方向, 这使得在遍历某一个面(Circulate a face)的时候需要插入条件判断语句(If...Else...), 在现今的处理器架构中, 如果对于分支的预测失败, 则已经执行的命令将会被丢弃, 这在一定程度上会影响到程序的性能. 正是由于这些原因, 翼边数据结构已经被半边数据结构(Halfedge Data Structure)所取代.
 
-# 半边数据结构
+# 半边数据结构(Halfedge Data Structure)
+
+半边数据结构用两条半边来表示一条实际的边, 每一个半边对应了与该边相邻的一个面, 这样在对半边进行遍历的时候顺序就是唯一的了. 同样地, 使用这种数据结构也能够很方便地遍历一个顶点周围的所有的边, 给定一个顶点$v$:
+
+1. 通过顶点$v$, 可以得到从$v$出发的半边的指针$h_0$
+2. 通过$h_0$可以得到半边$h_0$指向的顶点$w$($w$与$v$相邻)
+3. 通过和$h_0$方向相反的(Opposite)的半边$h_0'$, 可以得到从顶点$v$出发, 指向下一个与$v$相邻顶点的半边$h_1$
+4. 反复执行步骤2到步骤3直到回到最初的半边$h_0$
+
+{{<figure src = "/img/post/Guide-To-Computational-Geometry-Processing-Foundations-note1-polygon-meshes/img-8.PNG" title = "通过一条半边可以得到与它方向相反的另一条半边, 其指向的顶点, 其上一条和下一条半边以及半边所处的面.">}}
+
+在一些几何库(如OpenMesh, CGAL等)中会提供一种特殊的叫Circulators遍历方式, 通过这种遍历方式能够按照顺序遍历一个面的所有半边或者从某个顶点出发的所有半边.
+
+# Quad-Edge Data Structure
+
+Quad-Edge Data Structure只能够被用来表示流形(Manifold), Quad-Edge Data Structure中有顶点, 边和面, 其中边是Quad-Edge Data Structure中最重要的, 它存储了全部的拓扑信息. 而顶点和面存储的都是多余信息.
+
+通过将边旋转90度, 用顶点代替面, 用面代替顶点, 我们能够得到原网格的对偶(Dual)网格, 如立方体的对偶是八面体, 而四面体的对偶是另一个四面体.
+
+所谓Quad-Edge, 指的是边自身, 它的对称(取反方向), 它的对偶, 它的对偶的对称:
+
+{{<figure src = "/img/post/Guide-To-Computational-Geometry-Processing-Foundations-note1-polygon-meshes/img-11.PNG" title = "">}}
+
+通过每一条边我们能够索引到下面的信息:
+
+{{<figure src = "/img/post/Guide-To-Computational-Geometry-Processing-Foundations-note1-polygon-meshes/img-9.PNG" title = "">}}
+
+{{<figure src = "/img/post/Guide-To-Computational-Geometry-Processing-Foundations-note1-polygon-meshes/img-10.PNG" title = "">}}
+
+Quad-Edge Data Structure通过存储四倍多余的信息, 在表示和处理涉及到对偶结构的2维流形(如Voronoi图和Delaunay三角剖分)时十分方便.
+
+对于Quad-Edge Data Structure, 只需要下面两种基本的拓扑操作就能完成全部的创建(Construction)和修改(Modification)需求:
+
+{{<figure src = "/img/post/Guide-To-Computational-Geometry-Processing-Foundations-note1-polygon-meshes/img-12.PNG" title = "">}}
