@@ -17,7 +17,7 @@ tags: ["Guide to Computational Geometry Processing Foundations", "阅读笔记"]
 - 顶点$i$在空间中对应点的位置记为$\mathbf{p}_i$.
 - 全部顶点的个数记为$\|V\|$, 对于边和面同理.
 - 记与顶点$i$相邻顶点的集合为$N_i$, 即对于顶点$i$, 满足边$ij$是三角形网格上的边这一条件的顶点$j$组成的集合.
-- 与顶点$i$相邻顶点的数目记作$\|N_i\|$, 称作顶点i的 **顶点价(Valence)**.
+- 与顶点$i$相邻顶点的数目记作$\|N_i\|$, 称作顶点i的 **度(Valence)**.
 - 一个顶点的"*One-Ring*"是共享这个顶点多边形的集合, 与改顶点相邻的顶点也被称为是 *One-Ring* 相邻的(如下图所示).
 
 {{<figure src = "/img/post/Guide-To-Computational-Geometry-Processing-Foundations-note1-polygon-meshes/img-0.PNG" title = "顶点以及它的one-ring">}}
@@ -44,7 +44,7 @@ tags: ["Guide to Computational Geometry Processing Foundations", "阅读笔记"]
 
 - 过采样(Oversampling): 由于采样的时候并没有区分物体的集合细节度的高低, 这就会导致生成的几何模型带有了很多不必要的数据.
 - 采样不足(Undersampling): 由于同样的原因, 对一些小尺度的几何特征和尖锐的边角的采样会存在不足, 这回导致最终得到的网格中会存在锯齿.
-- 非正则(Irregularity): 对于完全正则的三角形网格, 所以顶点的顶点价(Valence)都是6, 但是只有圆环或者平面是完全正则的. 然而在高度正则化的网格上, 顶点价(Valence)不为6的顶点数目较少. 因为很多的算法对高度正则化的网格有着较好的亲和性, 所以改善网格的正则性是必不可少的. 一般将一些不太好的三角形分为Needles(针头)和Caps(帽子)两类. 前者指存在一个非常非常短的边的三角形, 后者指的是存在一个接近180°内角的三角形.
+- 非正则(Irregularity): 对于完全正则的三角形网格, 所以顶点的度(Valence)都是6, 但是只有圆环或者平面是完全正则的. 然而在高度正则化的网格上, 度(Valence)不为6的顶点数目较少. 因为很多的算法对高度正则化的网格有着较好的亲和性, 所以改善网格的正则性是必不可少的. 一般将一些不太好的三角形分为Needles(针头)和Caps(帽子)两类. 前者指存在一个非常非常短的边的三角形, 后者指的是存在一个接近180°内角的三角形.
 - 拓扑问题(Topological Issues): 受扫描仪器的限制, 得到的网格往往是一块一块的, 并不是一个整体. 极端情况下还有可能出现独立存在的三角形. 最终得到网格可能是一个流行, 但是其亏格数(Genus)可能多于预期.
 
 # 对多边形网格的操作
@@ -59,9 +59,9 @@ Edge Collapse可以看作将两个顶点焊接在一起，并且两个顶点并�
 
 1. 找到与被Collapse的边的两个端点相邻的所有顶点. 如果与该边相邻的面是三角形, 不在该边上的角将会被两个端点连在一起, 这样就是合法的, 因为Collapse后这两个三角形就会消失. 而其它所有的一个顶点和待Collapse边的两个端点相邻的情况(非三角形网格)都是非法的, 因为这会导致一个顶点和焊接后的新顶点之间存在两条边.
 
-2. 如果所有与待Collapse边相邻的面都是三角形, 且边的端点的顶点价(Valence)为3, 则该物体是一个四面体, Collapse操作会使四面体退化.
+2. 如果所有与待Collapse边相邻的面都是三角形, 且边的端点的度(Valence)为3, 则该物体是一个四面体, Collapse操作会使四面体退化.
 
-3. 如果所有与待Collapse边相邻的面都是三角形, 它们在操作后会消失, 且三角形上除这条边上的两个端点外的另一个顶点的顶点价(Valence)会减少1.
+3. 如果所有与待Collapse边相邻的面都是三角形, 它们在操作后会消失, 且三角形上除这条边上的两个端点外的另一个顶点的度(Valence)会减少1.
 
 4. 对于两个连接两个边界环(Boundary Loops)的边, 一般是不允许进行Collapse操作的, 因为这会构造出一个8字形.
 
@@ -76,7 +76,7 @@ two faces in the 1-ring of this vertex are triangles, they will become coplanar.
 the faces are not triangles we may wish to allow the collapse since valence two
 vertices could be considered legal.
 
-这个地方我想了好久, 感觉莫名奇妙, 为什么Collapse后余下的两个面如果是三角形它们就共面? 不是三角形则可以操作？ 且顶点价(Valence)等于2合法对应的前提条件是什么? 这里都没有说清楚.
+这个地方我想了好久, 感觉莫名奇妙, 为什么Collapse后余下的两个面如果是三角形它们就共面? 不是三角形则可以操作？ 且度(Valence)等于2合法对应的前提条件是什么? 这里都没有说清楚.
 
 ---
 
